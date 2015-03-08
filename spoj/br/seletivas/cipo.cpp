@@ -8,6 +8,7 @@ using namespace std;
 int parent[2222];
 int custo[2222];
 int rankset[2222];
+int mincusto;
 
 typedef pair<int, int> pii;
 typedef pair<int, pii> pipii;
@@ -31,15 +32,14 @@ void unionset(int a, int b, int c)
   if (rankset[pa] > rankset[pb])
   {
     parent[pb] = pa;
-    custo[pa] += custo[pb] + c;
   }
   else
   {
     parent[pa] = pb;
-    custo[pb] += custo[pa] + c;
     if (rankset[pa] == rankset[pb])
       rankset[pb]++;
   }
+  mincusto += c;
 }
 
 int main()
@@ -49,8 +49,7 @@ int main()
   int teste = 1;
   while (scanf("%d %d", &n, &m) != EOF)
   {
-    if (teste > 1)
-      printf("\n");
+    mincusto = 0;
 
     for (int i = 1; i <= n; ++i)
     {
@@ -72,17 +71,7 @@ int main()
       unionset(cur.second.first, cur.second.second, cur.first);
     }
 
-    set<int> forest;
-    for (int i = 1; i <= n; ++i)
-      forest.insert(find(i));
-
-    int mincusto = 0;
-    for (set<int>::iterator it = forest.begin();
-         it != forest.end();
-         ++it)
-      mincusto += custo[*it];
-
-    printf("Instancia %d\n%d\n", teste++, mincusto);
+    printf("Instancia %d\n%d\n\n", teste++, mincusto);
   }
 
   return 0;
