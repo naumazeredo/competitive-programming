@@ -16,7 +16,7 @@ int main()
     scanf("%d", &n);
     if (n == 0)
       break;
-    printf("f91(%d) = %d\n", n, f91);
+    printf("f91(%d) = %d\n", n, f91(n));
   }
 
   return 0;
