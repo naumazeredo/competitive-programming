@@ -30,3 +30,6 @@
 # Tests
 *.test
 tests/
+
+# Incomplete
+incomplete/
