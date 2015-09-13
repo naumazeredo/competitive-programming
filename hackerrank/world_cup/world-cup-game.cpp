@@ -1,11 +1,12 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n, a, b, tt;
+int n, a, b;
 vector<int> adj[600000];
 long long t[600000];
 int d[600000];
 int v[600000];
+long long tt;
 
 int main() {
   cin >> n;
@@ -33,10 +34,13 @@ int main() {
     if (d[i] == 1)
       q.push(i);
 
+  long long k = 1;
   int x, y, s;
   while (!q.empty()) {
     x = q.front(); q.pop();
     v[x] = 1;
+
+    k = max(k, min(t[x], tt-t[x]));
 
     s = adj[x].size();
     for (int i = 0; i < s; ++i) {
@@ -52,36 +56,7 @@ int main() {
     }
   }
 
-  int g = 1;
-  for (int i = 1; i <= n; ++i) {
-    if (t[i] == tt) {
-      g = i;
-      break;
-    }
-  }
-
-  while (true) {
-    s = adj[g].size();
-    x = -1;
-    for (int i = 0; i < s; ++i) {
-      y = adj[g][i];
-      if (x < 0 || t[y] > t[x])
-        x = y;
-    }
-
-    t[g] = tt - t[x];
-
-    for (int i = 1; i <= n; ++i)
-      cout << t[i] << " ";
-    cout << endl;
-
-    if (t[g] >= t[x]) {
-      cout << t[g] << endl;
-      break;
-    } else {
-      g = x;
-    }
-  }
+  cout << tt - k << endl;
 
   return 0;
 }
