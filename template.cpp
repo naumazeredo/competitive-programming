@@ -6,6 +6,7 @@ using namespace std;
 #define mp make_pair
 #define pb push_back
 #define cl(x) memset((x), 0, sizeof(x))
+#define cli(x) memset((x), 63, sizeof(x))
 
 #define db(x) cerr << #x << " == " << x << endl
 #define dbs(x) cerr << x << endl
