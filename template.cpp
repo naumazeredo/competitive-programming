@@ -5,8 +5,7 @@ using namespace std;
 #define nd second
 #define mp make_pair
 #define pb push_back
-#define cl(x) memset((x), 0, sizeof(x))
-#define cli(x) memset((x), 63, sizeof(x))
+#define cl(x, v) memset((x), (v), sizeof(x))
 
 #define db(x) cerr << #x << " == " << x << endl
 #define dbs(x) cerr << x << endl
@@ -20,7 +19,8 @@ typedef pair<int, pii> piii;
 typedef pair<ll, ll> pll;
 typedef vector<int> vi;
 
-const int INF = 0x3f3f3f3f, MOD = 1e9+7;
+const int INF = 0x3f3f3f3f, MOD = 1e9+7, EPS = 1e-6;
+const int N = 1e5+5;
 
 int main() {
   return 0;
