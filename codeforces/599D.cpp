@@ -2,57 +2,38 @@
 using namespace std;
 
 typedef long long ll;
+typedef unsigned long long ull;
 
-// Essa questão é de matemática.
+typedef pair<int, int> ii;
+typedef pair<int, ii> iii;
 
-// Dado um retângulo nxm, temos:
-// (assumindo que n >= m)
-// quadrados de tam 1: n*m
-// quadrados de tam 2: (n-1)*(m-1)
-// quadrados de tam 3: (n-2)*(m-2)
-// ...
-// quadrados de tam m-1: (n-(m-1))*(m-(m-1))
+const int INF = 2e9;
 
-// n*m + (n-1)*(m-1) + .. + (n-(m-1))*(m-(m-1)) = x
-// 3*m^2*n - m^3 + 3*m*n + m = 6*x
+const int MAXN = 1e7;
+const int MAXLOGN = 30;
 
-// Se n = m:
-// 3*m^3 - m^3 + 3*m^2 + m = 6*x
-// m^3 <= 3*x
-// m <= (3*x)^(1/3)
+const double tol = 1e-10;
 
-// Portanto o número máximo de m que vamos calcular vai ser
-// (3*10^18)^(1/3) <= 2*10^6
-// Então conseguimos testar todos esse valores de m (!!!)
-// Devemos "chutar" um valor de m, calcular o valor de n,
-// e ver se é possível usando a fórmula calculada
+ull k;
 
-// n = (6*x + m^3 - m)/(3*m*(m+1))
-
-
-ll x;
+vector< pair<ull, ull> > s;
 
 int main() {
-  scanf("%lld", &x);
+  scanf("%llu", &k);
 
-  vector<ll> a, b;
-  for (ll m = 1; ; ++m) {
-    ll n = (6*x - m + m*m*m)/(3*m*(m+1));
-    if (m > n) break;
+  ull n = 1;
+  while (n*n*n < 3*k) {
+    ull a = 6*k + n*n*n - n,
+        b = 3*(n*n+n);
+    if (a%b == 0) s.push_back(pair<ull, ull>(n, a/b));
 
-    if (3*m*m*n - m*m*m + 3*m*n + m == 6*x)
-      a.push_back(m), b.push_back(n);
+    n++;
   }
 
-  printf("%d\n", 2*a.size() - (a.back() == b.back())); // se a.back() == b.back(), temos n == m e não devemos imprimir denovo esse par!
-
-  // ordem direta
-  for (int i = 0; i < a.size(); ++i)
-    printf("%lld %lld\n", a[i], b[i]);
-
-  // ordem inversa
-  for (int i = a.size()-1 - (a.back() == b.back()); i >= 0; --i) // temos que tratar o caso de a.back() == b.back() denovo, para não imprimir em dobro
-    printf("%lld %lld\n", b[i], a[i]);
-
+  printf("%d\n", (int)(2*s.size()) - (s.back().first==s.back().second));
+  for (int i = 0; i < s.size(); ++i)
+    printf("%llu %llu\n", s[i].first, s[i].second);
+  for (int i = s.size()-1 - (s.back().first==s.back().second); i >= 0; --i)
+    printf("%llu %llu\n", s[i].second, s[i].first);
   return 0;
 }

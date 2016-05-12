@@ -13,18 +13,13 @@ const ll LINF = 0x3f3f3f3f3f3f3f3f;
 
 const int N = 1e7;
 
-int n, m, l, s, res;
-int a[10000000];
+ll n;
 
 int main() {
-  scanf("%d%d", &n, &m);
-  n*=2, m*=3;
-  for (int i = 6; i <= min(n, m); i+=6) {
-    if (n+2 < m+3) n+=2;
-    else m+=3;
-  }
-
-  printf("%d\n", max(n, m));
-
+  scanf("%lld", &n);
+  int i = 1;
+  while (n>0) n-=i, i++;
+  n+=i-1;
+  printf("%lld\n", n);
   return 0;
 }

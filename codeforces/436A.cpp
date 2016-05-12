@@ -1,60 +1,71 @@
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <utility>
+#include <vector>
+#include <algorithm>
+#include <functional>
 using namespace std;
 
-int n, x, ct, cx, total;
-int t[3000], h[3000], m[3000];
-int v[3000];
+struct sweet
+{
+  int used, t, h, m;
+};
 
-int main() {
+sweet ss[2000];
+
+int main()
+{
+  int n, x;
   scanf("%d%d", &n, &x);
-  for (int i = 0; i < n; ++i) scanf("%d%d%d", &t[i], &h[i], &m[i]);
 
-  // Começa comendo o tipo 0
-  cx = x;
-  ct = 0;
-  total = 0;
-  while (1) {
-    // Procura o doce com maior massa que pode ser comido (estratégia gulosa)
-    int ma = 0, ind = -1;
-    for (int i = 0; i < n; ++i)
-      if (!v[i] and       // não foi comido ainda
-          t[i] == ct and    // tipo igual ao que queremos
-          h[i] <= cx and    // altura alcançável
-          m[i] > ma)        // massa maior que encontramos até agora
-        ma = m[i], ind = i; // !dois comandos em uma linha!
-
-    if (ind < 0) break;     // não achou nenhuma doce que pudesse comer
-
-    total++;
-    cx += ma;   // aumenta o pulo
-    v[ind]=1;   // marca que comeu o doce
-    ct = 1-ct;  // !jeito rápido de alternar entre 0 e 1
+  for (int i = 0; i < n; ++i)
+  {
+    scanf("%d%d%d", &ss[i].t, &ss[i].h, &ss[i].m);
+    ss[i].used = 0;
   }
 
-  int res = total; // armazena o resultado começando no tipo 0
+  sort(ss, ss + n, [] (sweet a, sweet b) { return a.m > b.m; });
 
-  // marca todos os doces como não comidos
-  for (int i = 0; i < n; ++i) v[i]=0; // podia usar: memset(v, 0, sizeof(v));
-
-  // comendo o tipo 1
-  cx = x;
-  ct = 1;
-  total = 0;
-  while (1) {
-    int ma = 0, ind = -1;
-    for (int i = 0; i < n; ++i)
-      if (!v[i] and t[i] == ct and h[i] <= cx and m[i] > ma)
-        ma = m[i], ind = i;
-    if (ind < 0) break;
-
-    total++;
-    cx += ma;
-    v[ind]=1;
-    ct = 1-ct;
+  int i = 0, cnt1 = 0, cnt2 = 0, t = 0;
+  int ix = x;
+  while (i != n)
+  {
+    for (i = 0; i < n; ++i)
+    {
+      if (!ss[i].used && ss[i].h <= ix && ss[i].t != t)
+      {
+        ss[i].used = 1;
+        ix += ss[i].m;
+        t = ss[i].t;
+        cnt1++;
+        i = 0;
+        break;
+      }
+    }
   }
 
-  res = max(res, total); // Pega o máximo entre 
+  for (int i = 0; i < n; ++i)
+    ss[i].used = 0;
 
-  printf("%d\n", res);
+  ix = x;
+  t = 1;
+  i = 0;
+  while (i != n)
+  {
+    for (i = 0; i < n; ++i)
+    {
+      if (!ss[i].used && ss[i].h <= ix && ss[i].t != t)
+      {
+        ss[i].used = 1;
+        ix += ss[i].m;
+        t = ss[i].t;
+        cnt2++;
+        i = 0;
+        break;
+      }
+    }
+  }
+
+  printf("%d\n", max(cnt1, cnt2));
+
   return 0;
 }

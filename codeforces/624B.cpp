@@ -13,24 +13,21 @@ const ll LINF = 0x3f3f3f3f3f3f3f3f;
 
 const int N = 1e7;
 
-int n, x, y;
-char a[300];
+int n;
+int a[30];
 
 int main() {
   scanf("%d", &n);
-  for (int i = 0; i < n; ++i) scanf(" %c", &a[i]);
+  for (int i = 0; i < n; ++i) scanf("%d", &a[i]);
 
-  int cnt = 0;
   for (int i = 0; i < n; ++i) {
-    x = 0; y = 0;
-    for (int j = i; j < n; ++j) {
-      if (a[j] == 'U') y++;
-      if (a[j] == 'D') y--;
-      if (a[j] == 'R') x++;
-      if (a[j] == 'L') x--;
-      if (!x and !y) cnt++;
-    }
+    sort(a, a+n);
+    for (int j = 0; j < n-1; ++j) if (a[j] == a[j+1]) a[j]--;
   }
-  printf("%d\n", cnt);
+
+  ll t = 0;
+  for (int i = 0; i < n; ++i) if (a[i] > 0) t+=a[i];
+  printf("%lld\n", t);
+
   return 0;
 }

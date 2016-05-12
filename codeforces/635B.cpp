@@ -1,47 +1,48 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define st first
-#define nd second
-#define mp make_pair
 #define pb push_back
 
-#define db(x) cerr << #x << " == " << x << endl
-#define dbs(x) cerr << x << endl
-#define _ << ", " <<
-
 typedef long long ll;
-typedef long double ld;
 
-typedef pair<int, int> pii;
-typedef pair<int, pii> piii;
-typedef vector<int> vi;
-typedef vector<vi> vvi;
+typedef pair<int, int> ii;
+typedef pair<int, ii> iii;
 
-const int INF = 0x3f3f3f3f, MOD = 1e9+7;
+const int INF = 0x3f3f3f3f;
+const ll LINF = 0x3f3f3f3f3f3f3f3f;
+
 const int N = 1e7;
 
-int n, p, e;
-int a[300000];
-int c[300000];
-int b[300000];
+int n, a[3];
+char c;
 
 int main() {
   scanf("%d", &n);
-  int x, y;
-  for (int i = 0; i < n; ++i) scanf("%d", a+i), x=a[i]==1?i:x;
-  for (int i = 0; i < n; ++i) scanf("%d", b+i), y=b[i]==1?i:y;
-
-  int e = 0;
   for (int i = 0; i < n; ++i) {
-    if (!a[(i+x)%n]) x++;
-    if (!b[(i+y)%n]) y++;
-    if (a[(i+x)%n] != b[(i+y)%n]) {
-      printf("NO\n"); return 0;
-    }
+    scanf(" %c", &c);
+    if (c == 'B') a[0]++;
+    if (c == 'G') a[1]++;
+    if (c == 'R') a[2]++;
   }
 
-  printf("YES\n");
+       if (a[0] and !a[1] and !a[2]) printf("B\n");
+  else if (!a[0] and a[1] and !a[2]) printf("G\n");
+  else if (!a[0] and !a[1] and a[2]) printf("R\n");
+
+  else if (a[0]==1 and a[1]==1 and a[2]==0) printf("R\n");
+  else if (a[0]==1 and a[1]==0 and a[2]==1) printf("G\n");
+  else if (a[0]==0 and a[1]==1 and a[2]==1) printf("B\n");
+
+  else if (a[0]>=2 and a[1]==1 and a[2]==0) printf("GR\n");
+  else if (a[0]>=2 and a[1]==0 and a[2]==1) printf("GR\n");
+
+  else if (a[0]==1 and a[1]>=2 and a[2]==0) printf("BR\n");
+  else if (a[0]==0 and a[1]>=2 and a[2]==1) printf("BR\n");
+
+  else if (a[0]==1 and a[1]==0 and a[2]>=2) printf("BG\n");
+  else if (a[0]==0 and a[1]==1 and a[2]>=2) printf("BG\n");
+
+  else printf("BGR\n");
 
   return 0;
 }
