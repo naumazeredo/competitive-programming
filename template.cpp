@@ -19,7 +19,7 @@ typedef pair<int, pii> piii;
 typedef pair<ll, ll> pll;
 typedef vector<int> vi;
 
-const ld EPS = 1e-6, PI = acos(-1);
+const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
