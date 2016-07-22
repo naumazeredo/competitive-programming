@@ -99,6 +99,19 @@ void dfs(int u) {
   }
 }
 
+/*
+// LCA with HLD
+int lca(int u, int v) {
+  while (chainInd[u] != chainInd[v]) {
+    if (h[chainHead[chainInd[u]]] < h[chainHead[chainInd[v]]]) swap(u, v);
+    u = par[chainHead[chainInd[u]]][0];
+  }
+  if (h[u] > h[v]) swap(u, v);
+  return u;
+}
+*/
+
+// LCA with binary lifting (+ sparse table)
 int lca(int u, int v) {
   if (h[u] < h[v]) swap(u, v);
 
