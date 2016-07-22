@@ -34,12 +34,6 @@ void dfs(int u) {
     dfs(v), sz[u]+=sz[v];
 }
 
-void dfs2(int u) {
-  vis[u] = 0;
-  for (int v : adj[u]) if (vis[v])
-    ans += min(2*k-sz[v], sz[v]), dfs2(v);
-}
-
 int main() {
   scanf("%d%d", &n, &k);
   for (int i = 0; i < 2*k; ++i) scanf("%d", &a), m[a] = 1;
@@ -49,7 +43,10 @@ int main() {
     adj[b].pb(a);
   }
 
-  dfs(1); dfs2(1);
+  dfs(1);
+  for (int i = 0; i <= n; ++i)
+    ans += min(2*k-sz[i], sz[i]);
+
   printf("%lld\n", ans);
   return 0;
 }
