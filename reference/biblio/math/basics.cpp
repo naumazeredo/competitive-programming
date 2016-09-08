@@ -3,7 +3,7 @@ ll gcd(ll a, ll b) { return b ? gcd(b, a%b) : a; }
 ll lcm(ll a, ll b) { return a*(b/gcd(a, b)); }
 
 // Multiply caring overflow
-ll mul(ll a, ll b, ll m=MOD) {
+ll mulmod(ll a, ll b, ll m=MOD) {
   ll r=1;
   for (a %= m; b; b>>=1, a=(a*2)%m) if (b&1) r=(r+a)%m;
   return r;
