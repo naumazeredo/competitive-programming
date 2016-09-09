@@ -5,7 +5,8 @@ int match(int u) {
   if (vis[u] == x) return 0;
   vis[u] = x;
   for (int v : adj[u])
-    if (!b[v] or match(b[v])) return b[v]=u; // if 0-indexed: b[v]=u; return 1;
+    if (!b[v] or match(b[v])) return b[v]=u;
+    // if 0-indexed: b[v]=u; return 1;
   return 0;
 }
 
