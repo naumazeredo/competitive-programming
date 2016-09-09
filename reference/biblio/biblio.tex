@@ -1,0 +1,149 @@
+\documentclass[a4paper, 13pt, twocolumn, landscape]{book}
+
+\usepackage[left=1cm, right=1cm, bottom=1cm, top=1cm, headsep=0.2cm]{geometry}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{pdflscape}
+\usepackage{multicol}
+\usepackage{fancyhdr}
+\fancyhead{}
+\fancyfoot{}
+\lhead{INSTITUTO MILITAR DE ENGENHARIA - \the\year}
+\chead{LOREM IPSUM}
+\rhead{\thepage}
+
+\renewcommand{\headrulewidth}{2pt}
+
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{listingsutf8}
+\definecolor{verdecpp}{rgb}{0,0.5,0}
+\lstset{
+  language=C++,
+  inputencoding=utf8/latin1,
+  alsolanguage={[Sharp]C},
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  stringstyle=\color{verdecpp},
+  commentstyle=\color{red},
+  extendedchars=true,
+  showspaces=false,
+  showstringspaces=false,
+  %numbers=left,
+  numberstyle=\tiny,
+  breaklines=true,
+  %backgroundcolor=\color{green!10},
+  breakautoindent=true,
+  captionpos=b,
+  xleftmargin=0pt,
+}
+
+\begin{document}
+
+  \pagestyle{fancy}
+
+  \setlength{\columnseprule}{1pt}
+
+  % Graphs
+
+  \lstinputlisting[language=C++]{graphs/dfs.cpp}
+  \lstinputlisting[language=C++]{graphs/bfs.cpp}
+  \lstinputlisting[language=C++]{graphs/kahn.cpp}
+  \lstinputlisting[language=C++]{graphs/articulation.cpp}
+  \lstinputlisting[language=C++]{graphs/kosaraju.cpp}
+  \lstinputlisting[language=C++]{graphs/kruskal.cpp}
+  \lstinputlisting[language=C++]{graphs/prim.cpp}
+  \lstinputlisting[language=C++]{graphs/dijkstra.cpp}
+  \lstinputlisting[language=C++]{graphs/bellman-ford.cpp}
+  \lstinputlisting[language=C++]{graphs/spfa.cpp}
+  \lstinputlisting[language=C++]{graphs/floyd-warshall.cpp}
+  %\lstinputlisting[language=C++]{graphs/.cpp} % Flow
+  \lstinputlisting[language=C++]{graphs/kuhn.cpp}
+  \lstinputlisting[language=C++]{graphs/lca.cpp}
+
+  % Math
+
+  \lstinputlisting[language=C++]{math/basics.cpp}
+  \lstinputlisting[language=C++]{math/sieve.cpp}
+  \lstinputlisting[language=C++]{math/euler-phi.cpp}
+  \lstinputlisting[language=C++]{math/extended-euclid.cpp}
+  \lstinputlisting[language=C++]{math/mult-inverse.cpp}
+  \lstinputlisting[language=C++]{math/prime-factors.cpp}
+  \lstinputlisting[language=C++]{math/pollard-rho.cpp}
+  \lstinputlisting[language=C++]{math/miller-rabin.cpp}
+
+  % Strings
+
+  \lstinputlisting[language=C++]{strings/rabin-karp.cpp}
+  \lstinputlisting[language=C++]{strings/kmp.cpp}
+  \lstinputlisting[language=C++]{strings/suffix-array.cpp}
+
+  % Data Structures
+
+  \lstinputlisting[language=C++]{data-structures/dsu.cpp}
+  \lstinputlisting[language=C++]{data-structures/bit.cpp}
+  \lstinputlisting[language=C++]{data-structures/segtree.cpp}
+  \lstinputlisting[language=C++]{data-structures/hld.cpp}
+
+  \newpage
+  \onecolumn
+  \begin{table}[ht]
+    \centering
+    \resizebox{\textwidth}{!}{
+      \begin{tabular}{|c|c|c|c|m{80mm}|m{120mm}|c|}
+        \hline
+        & A & C & N & Assunto & Descricao & Diff\\
+        \hline
+        & & & & & &\\
+        A & & & & & &\\
+        & & & & & &\\
+        \hline
+        & & & & & &\\
+        B & & & & & &\\
+        & & & & & &\\
+        \hline
+        & & & & & &\\
+        C & & & & & &\\
+        & & & & & &\\
+        \hline
+        & & & & & &\\
+        D & & & & & &\\
+        & & & & & &\\
+        \hline
+        & & & & & &\\
+        E & & & & & &\\
+        & & & & & &\\
+        \hline
+        & & & & & &\\
+        F & & & & & &\\
+        & & & & & &\\
+        \hline
+        & & & & & &\\
+        G & & & & & &\\
+        & & & & & &\\
+        \hline
+        & & & & & &\\
+        H & & & & & &\\
+        & & & & & &\\
+        \hline
+        & & & & & &\\
+        I & & & & & &\\
+        & & & & & &\\
+        \hline
+        & & & & & &\\
+        J & & & & & &\\
+        & & & & & &\\
+        \hline
+        & & & & & &\\
+        K & & & & & &\\
+        & & & & & &\\
+        \hline
+        & & & & & &\\
+        L & & & & & &\\
+        & & & & & &\\
+        \hline
+      \end{tabular}
+    }
+  \end{table}
+
+\end{document}
