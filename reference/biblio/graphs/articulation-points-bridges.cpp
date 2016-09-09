@@ -14,5 +14,5 @@ void articulation(int u) {
   }
 }
 
-// root special case
-art[0] = ch[0]>1;
+for (int i = 0; i < n; ++i) if (!num[i])
+  articulation(i), art[i] = ch[i]>1;
