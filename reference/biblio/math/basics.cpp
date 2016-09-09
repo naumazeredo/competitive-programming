@@ -15,3 +15,6 @@ ll fexp(ll a, ll b, ll m=MOD) {
   for (; b; b>>=1, a=(a*a)%m) if (b&1) r=(r*a)%m;
   return r;
 }
+
+// Catalan
+cat[n] = (2*(2*n-1)/(n+1))*cat[n-1]
