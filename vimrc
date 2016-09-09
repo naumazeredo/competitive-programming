@@ -6,4 +6,6 @@ vnoremap ; :
 noremap <c-j> 15gj
 noremap <c-k> 15gk
 nnoremap <s-k> i<CR><ESC>
-noremap ,. <esc>
+inoremap ,. <esc>
+vnoremap ,. <esc>
+nnoremap ,. <esc>
