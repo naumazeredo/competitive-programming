@@ -9,8 +9,9 @@ void articulation(int u) {
       articulation(v);
       if (low[v] >= num[u]) art[u] = 1;
       if (low[v] >  num[u]) // u-v bridge
+      low[u] = min(low[u], low[v]);
     }
-    if (v != par[u]) low[u] = min(low[u], low[v]);
+    else if (v != par[u]) low[u] = min(low[u], num[v]);
   }
 }
 

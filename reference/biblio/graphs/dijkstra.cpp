@@ -1,4 +1,4 @@
-// Dijkstra - SSSP O(VE)
+// Dijkstra - SSSP O((V+E)logE)
 vi adj[N], adjw[N];
 int dist[N];
 
