@@ -1,19 +1,3 @@
-/*
-  WRONG ANSWER!!!
-
-  The ideia is correct but for some precision issue it gets WA!
-
-
-
-
-
-
-
-
-
-
-
-  */
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -81,7 +65,7 @@ int main() {
     }
 
     ld lo = 0, hi = 24*60;
-    while (hi-lo > EPS) {
+    for (int i = 0; i < 200; ++i) {
       ld p1 = (2*lo+hi)/3;
       ld p2 = (lo+2*hi)/3;
       ld t1 = dijkstra(p1), t2 = dijkstra(p2);
