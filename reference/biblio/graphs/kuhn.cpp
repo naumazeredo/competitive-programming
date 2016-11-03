@@ -1,7 +1,7 @@
 // Kuhn - Bipartite Matching O(VE)
-int x, vis[N], b[n], ans;
+int x, vis[N], b[N], ans;
 
-int match(int u) {
+bool match(int u) {
   if (vis[u] == x) return 0;
   vis[u] = x;
   for (int v : adj[u])
