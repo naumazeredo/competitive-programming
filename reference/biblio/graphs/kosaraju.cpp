@@ -18,4 +18,4 @@ void dfst(int u) {
 // in main
 sccn = ordn = 0;
 for (int i = 0; i < n; ++i) if (!vis[i]) dfs(i);
-for (int i = n-1; i >= 0; --i) if (!vis[ord[i]]) dfst(ord[i]), sccn++;
+for (int i = n-1; i >= 0; --i) if (vis[ord[i]]) dfst(ord[i]), sccn++;
