@@ -2,7 +2,7 @@
 vi adj[N];
 int par[N], h[N];
 
-int chainno, chain[N], head[N], chainpos[N], chainsz[N];
+int chainno, chain[N], head[N], chainpos[N], chainsz[N], pos[N], arrsz;
 int sc[N], sz[N];
 
 void dfs(int u) {
@@ -19,6 +19,7 @@ void hld(int u) {
   chain[u] = chainno;
   chainpos[u] = chainsz[chainno];
   chainsz[chainno]++;
+  pos[u] = ++arrsz;
 
   if (sc[u]) hld(sc[u]);
 
@@ -37,17 +38,17 @@ int lca(int u, int v) {
 
 int query_up(int u, int v) {
   if (u == v) return 0;
-  int uchain, vchain = chain[v], ans = -1;
+  int ans = -1;
   while (1) {
     uchain = chain[u];
-    if (uchain == vchain) {
+    if (chain[u] == chain[v]) {
       if (u == v) break;
-      ans = max(ans, query(1, 0, n-1, chainpos[v]+1, chainpos[u]));
+      ans = max(ans, query(1, 1, n, chainpos[v]+1, chainpos[u]));
       break;
     }
 
-    ans = max(ans, query(1, 0, n-1, chainpos[head[uchain]], chainpos[u]));
-    u = par[head[uchain]];
+    ans = max(ans, query(1, 1, n, chainpos[head[chain[u]]], chainpos[u]));
+    u = par[head[chain[u]]];
   }
   return ans;
 }
