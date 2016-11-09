@@ -6,11 +6,11 @@ int chainno, chain[N], head[N], chainpos[N], chainsz[N], pos[N], arrsz;
 int sc[N], sz[N];
 
 void dfs(int u) {
-  sz[u] = 1, sc[u] = 0; // nodes 1-indexed (otherwise (sc[u]=-1))
+  sz[u] = 1, sc[u] = 0; // nodes 1-indexed (0-ind: sc[u]=-1)
   for (int v : adj[u]) if (v != par[u]) {
     par[v] = u, h[v] = h[u]+1, dfs(v);
     sz[u]+=sz[v];
-    if (sz[sc[u]] < sz[v]) sc[u] = v; // 1-indexed (otherwise (sc[u]<0 or))
+    if (sz[sc[u]] < sz[v]) sc[u] = v; // 1-indexed (0-ind: sc[u]<0 or ...)
   }
 }
 
