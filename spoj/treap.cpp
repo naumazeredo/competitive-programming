@@ -29,7 +29,7 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
-ll llrand() { return ((ll)rand()<<32)^((ll)rand()); }
+mt19937 llrand(random_device{}());
 
 struct node {
   int val, cnt, mn, mx, mindiff;
@@ -74,20 +74,20 @@ struct treap {
     return r;
   }
 
-  pair<node*, node*> split(node* t, int val, int acc) {
+  pair<node*, node*> split(node* t, int pos, int acc) {
     if (!t) return {0, 0};
 
     update(t);
     int key = acc + cnt(t->l);
 
-    if (key < val) {
-      auto x = split(t->r, val, key+1);
+    if (key < pos) {
+      auto x = split(t->r, pos, key+1);
       t->r = x.st;
       update(t);
       return { t, x.nd };
     }
 
-    auto x = split(t->l, val, acc);
+    auto x = split(t->l, pos, acc);
     t->l = x.nd;
     update(t);
     return { x.st, t };

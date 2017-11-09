@@ -8,9 +8,14 @@ using namespace std;
 #define cl(x, v) memset((x), (v), sizeof(x))
 #define gcd(x,y) __gcd((x),(y))
 
-#define db(x) cerr << #x << " == " << x << endl
-#define dbs(x) cerr << x << endl
-#define _ << ", " <<
+#ifndef ONLINE_JUDGE
+  #define db(x) cerr << #x << " == " << x << endl
+  #define dbs(x) cerr << x << endl
+  #define _ << ", " <<
+#else
+  #define db(x)
+  #define dbs(x)
+#endif
 
 typedef long long ll;
 typedef long double ld;

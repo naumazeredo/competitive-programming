@@ -1,3 +1,6 @@
+/*
+  @subject: mo algorithm
+*/
 #include <bits/stdc++.h>
 using namespace std;
 
