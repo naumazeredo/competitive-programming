@@ -45,6 +45,15 @@ const int N = 1e5+5, V = 1e9+1;
   }
   */
 
+int g() {
+  char c;
+  while (isspace(c = getchar_unlocked())) ;
+  int n = c-'0';
+  while (~(c = getchar_unlocked()) and c >= '0' and c <= '9') n = 10*n+c-'0';
+  if (c == EOF) return EOF;
+  return n;
+}
+
 int v[35], d[35], x;
 
 int main() {
@@ -82,7 +91,7 @@ int main() {
   v[30] = 436273291; d[30] = 282;
   v[31] = INF;
 
-  while (~scanf("%d", &x)) {
+  while (~(x = g())) {
     int i = 0;
     for (; v[i] <= x; i++) ;
     printf("%d\n", d[i-1]);
