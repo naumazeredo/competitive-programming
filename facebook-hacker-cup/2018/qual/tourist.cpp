@@ -38,8 +38,27 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int t, n, k;
+ll v;
+char s[100][30];
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &t);
+  for (int tt = 1; tt <= t; tt++) {
+    printf("Case #%d: ", tt);
+
+    scanf("%d%d%lld", &n, &k, &v);
+    for (int i = 0; i < n; i++) scanf("%s", s[i]);
+
+    v--;
+    v *= k;
+    vector<int> ans;
+    for (int i = 0; i < k; i++) ans.push_back((v+i)%n);
+    sort(ans.begin(), ans.end());
+
+    for (int i = 0; i < (int)ans.size(); i++)
+      printf("%s%c", s[ans[i]], " \n"[i==k-1]);
+  }
+
   return 0;
 }

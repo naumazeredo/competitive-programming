@@ -2,13 +2,7 @@
 // @diff: 
 
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
-
 using namespace std;
-using namespace __gnu_pbds;
-
-typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
 
 #define st first
 #define nd second
@@ -38,8 +32,71 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int d[10];
+
+ll v, n, t;
+
+void bt(int x) {
+  if (x == 10) {
+    v += t;
+    return;
+  }
+
+  if (!d[x]) {
+    bt(x+1);
+    return;
+  }
+
+  for (int i = 1; i <= d[x]; i++) {
+    for (int j = 1; j <= i; j++) {
+      n++;
+      t *= n;
+      t /= j;
+    }
+    bt(x+1);
+    for (int j = i; j >= 1; j--) {
+      t *= j;
+      t /= n;
+      n--;
+    }
+  }
+}
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%lld", &n);
+  while (n) {
+    d[n%10]++;
+    n/=10;
+  }
+
+  n = 0;
+  v = 0;
+  t = 1;
+  bt(0);
+
+  ll ans = v;
+
+  if (d[0]) {
+    d[0]--;
+
+    n = 0;
+    v = 0;
+    t = 1;
+    bt(0);
+
+    ans -= v;
+
+    if (d[0]) {
+      n = 0;
+      v = 0;
+      t = 1;
+      bt(1);
+
+      ans -= v;
+    }
+  }
+
+  printf("%lld\n", ans);
+
   return 0;
 }

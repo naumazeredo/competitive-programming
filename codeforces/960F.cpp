@@ -1,14 +1,5 @@
-// @subject: 
-// @diff: 
-
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
-
 using namespace std;
-using namespace __gnu_pbds;
-
-typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
 
 #define st first
 #define nd second
@@ -38,8 +29,49 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int n, m, a, b, c;
+map<int, int> lis[N];
+int ans;
+
+void add() {
+  auto ita = lis[a].lower_bound(c);
+  auto itb = lis[b].upper_bound(c);
+
+  int v;
+
+  if (ita == lis[a].begin()) {
+    v = 1;
+  } else {
+    ita--;
+    v = ita->nd + 1;
+  }
+
+  if (itb == lis[b].begin()) {
+    lis[b][c] = v;
+  } else {
+    itb--;
+    lis[b][c] = max(itb->nd, v);
+  }
+
+  itb = lis[b].find(c);
+  int last = itb->nd;
+  for (itb++; itb != lis[b].end() and itb->nd <= last;) {
+    auto it = itb; it++;
+    lis[b].erase(itb);
+    itb = it;
+  }
+
+  ans = max(ans, lis[b][c]);
+}
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%d", &n, &m);
+  while (m--) {
+    scanf("%d%d%d", &a, &b, &c);
+    add();
+  }
+
+  printf("%d\n", ans);
+
   return 0;
 }

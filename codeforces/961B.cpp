@@ -1,14 +1,5 @@
-// @subject: 
-// @diff: 
-
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
-
 using namespace std;
-using namespace __gnu_pbds;
-
-typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
 
 #define st first
 #define nd second
@@ -38,8 +29,22 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int n, k, a[N], t[N], p[N], s[N], v[N];
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%d", &n, &k);
+  for (int i = 1; i <= n; i++) scanf("%d", &a[i]);
+  for (int i = 1; i <= n; i++) scanf("%d", &t[i]);
+
+  for (int i = 1; i <= n; i++) p[i] = p[i-1] + t[i]*a[i];
+  for (int i = 1; i <= n; i++) v[i] = v[i-1] + a[i];
+  for (int i = n; i >= 1; i--) s[i] = s[i+1] + t[i]*a[i];
+
+  int ans = 0;
+  for (int i = 1; i <= n-k+1; i++)
+    ans = max(ans, p[i-1] + s[i+k] + v[i+k-1] - v[i-1]);
+
+  printf("%d\n", ans);
+
   return 0;
 }

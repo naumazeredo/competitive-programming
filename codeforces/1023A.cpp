@@ -36,10 +36,28 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 2e5+5;
+
+int n, m;
+char s[N], t[N];
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%d%s%s", &n, &m, s, t);
+
+  int p = -1;
+  for (int i = 0; i < n; i++) if (s[i] == '*') p = i;
+
+  int ok = 0;
+  if (p == -1) {
+    ok = string(s) == string(t);
+  } else {
+    int ls, rs, lt, rt;
+    for (ls = 0, lt = 0; ls < n and lt < m and s[ls] == t[lt]; ls++, lt++) ;
+    for (rs = n-1, rt = m-1; rs >= ls and rt >= lt and s[rs] == t[rt]; rs--, rt--) ;
+    ok = rs == ls;
+  }
+
+  printf("%s\n", ok ? "YES" : "NO");
+
   return 0;
 }

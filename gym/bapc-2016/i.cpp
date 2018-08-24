@@ -38,8 +38,25 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int p[N];
+set<int> s;
+int q;
+
+bool is_prime(int x) {
+  for (int i = 2; i*i <= x; i++)
+    if (!p[i] and x%i == 0)
+      return 0;
+  return x > 1;
+}
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  for (ll i = 2; i < N; i++) if (!p[i]) {
+    for (ll j = i*i; j < N; j+=i) p[j] = 1;
+    for (ll j = i; j < INF; j *= i) s.insert(j);
+  }
+
+  scanf("%d", &q);
+  printf("%s\n", s.count(q) or is_prime(q) ? "yes" : "no");
+
   return 0;
 }

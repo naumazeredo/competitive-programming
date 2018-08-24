@@ -36,10 +36,22 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 2e5+5;
+
+int n, m, a[N];
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%d", &n, &m);
+  ll s = 0;
+  for (int i = 0; i < n; i++) {
+    scanf("%d", &a[i]);
+    s += a[i];
+
+    ll cnt = s/m;
+    s = s%m;
+
+    printf("%lld ", cnt);
+  }
+  printf("\n");
   return 0;
 }

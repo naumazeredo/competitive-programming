@@ -1,14 +1,5 @@
-// @subject: 
-// @diff: 
-
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
-
 using namespace std;
-using namespace __gnu_pbds;
-
-typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
 
 #define st first
 #define nd second
@@ -38,8 +29,39 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int t, n, r[N][2], c[N], vis[N];
+
+int dfs(int u) {
+  if (vis[u]) return 0;
+
+  if (c[u]) c[u]--;
+  else {
+    vis[u]++;
+    if (!dfs(r[u][0])) return 0;
+    if (!dfs(r[u][1])) return 0;
+    vis[u]--;
+  }
+
+  return 1;
+}
+
+int add() {
+  for (int i = 1; i <= n; i++) vis[i] = 0;
+  return dfs(1);
+}
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &t);
+  for (int tt = 1; tt <= t; tt++) {
+    scanf("%d", &n);
+    for (int i = 1; i <= n; i++) scanf("%d%d", &r[i][0], &r[i][1]);
+    for (int i = 1; i <= n; i++) scanf("%d", &c[i]);
+
+    int ans = 0;
+    while (add()) ans++;
+
+    printf("Case #%d: %d\n", tt, ans);
+  }
+
   return 0;
 }

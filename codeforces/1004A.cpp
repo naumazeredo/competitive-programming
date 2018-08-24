@@ -38,8 +38,24 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int n, d;
+ll a[N];
+
+ll dist(ll x) {
+  ll k = INF;
+  for (int i = 0; i < n; i++) k = min(k, abs(x-a[i]));
+  return k;
+}
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%d", &n, &d);
+  for (int i = 0; i < n; i++) scanf("%lld", &a[i]);
+
+  set<ll> s;
+  for (int i = 0; i < n; i++) {
+    if (dist(a[i]-d) == d) s.insert(a[i]-d);
+    if (dist(a[i]+d) == d) s.insert(a[i]+d);
+  }
+  printf("%d\n", (int)s.size());
   return 0;
 }

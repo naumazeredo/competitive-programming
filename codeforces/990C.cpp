@@ -2,13 +2,7 @@
 // @diff: 
 
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
-
 using namespace std;
-using namespace __gnu_pbds;
-
-typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
 
 #define st first
 #define nd second
@@ -36,10 +30,36 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 3e5+5;
+
+int n;
+char s[N];
+map<int, ll> cl, op;
+ll ans;
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &n);
+  for (int i = 0; i < n; i++) {
+    scanf("%s", s);
+
+    int t = 0, a = 0;
+    for (int j = 0; s[j]; j++) {
+      if (s[j] == '(') t++;
+      if (s[j] == ')') {
+        if (t) t--;
+        else a++;
+      }
+    }
+
+    if (t and !a) op[t]++;
+    if (!t and a) cl[a]++;
+    if (!t and !a) ans++;
+  }
+
+  ans = ans*ans;
+  for (auto x : op)
+    ans += x.nd * cl[x.st];
+  printf("%lld\n", ans);
+
   return 0;
 }

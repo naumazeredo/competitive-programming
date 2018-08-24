@@ -36,10 +36,27 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 1e2+5;
+
+int n, m, s[N];
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%d", &n, &m);
+  for (int l, r, i = 0; i < n; i++) {
+    scanf("%d%d", &l, &r);
+    s[l]++; s[r+1]--;
+  }
+
+  vector<int> ans;
+  int acc = 0;
+  for (int i = 1; i <= m; i++) {
+    acc += s[i];
+    if (!acc) ans.push_back(i);
+  }
+
+  printf("%d\n", (int)ans.size());
+  for (int x : ans) printf("%d ", x);
+  printf("\n");
+
   return 0;
 }

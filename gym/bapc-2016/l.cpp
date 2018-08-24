@@ -36,10 +36,20 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 2e4+5;
+
+int n;
+ll l[N];
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &n);
+  for (int i = 0; i < n; i++) scanf("%lld", &l[i]);
+  sort(l, l+n);
+
+  for (int i = 2; i < n; i++)
+    if (l[i] < l[i-1]+l[i-2])
+      return !printf("possible\n");
+  printf("impossible\n");
+
   return 0;
 }

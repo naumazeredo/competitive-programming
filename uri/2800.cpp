@@ -38,8 +38,28 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+
+int n, q, a[N];
+ordered_set s[N];
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%d", &n, &q);
+  for (int i = 1; i <= n; i++) {
+    scanf("%d", &a[i]);
+    s[a[i]].insert(i);
+  }
+
+  for (int t, x, y, w, i = 0; i < q; i++) {
+    scanf("%d", &t);
+    if (t == 1) {
+      scanf("%d%d", &x, &w);
+      s[a[x]].erase(x);
+      a[x] = w;
+      s[a[x]].insert(x);
+    } else {
+      scanf("%d%d%d", &x, &y, &w);
+      printf("%d\n", y-x+1 - (int)(s[w].order_of_key(y+1) - s[w].order_of_key(x)));
+    }
+  }
   return 0;
 }

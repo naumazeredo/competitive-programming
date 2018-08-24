@@ -1,14 +1,5 @@
-// @subject: 
-// @diff: 
-
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
-
 using namespace std;
-using namespace __gnu_pbds;
-
-typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
 
 #define st first
 #define nd second
@@ -38,8 +29,27 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int n, a[N], p[N];
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &n);
+  for (int i = 1; i <= n; i++) scanf("%1d", &a[i]);
+
+  if (n == 1 and a[1] == 0) return !printf("No\n");
+  if (n >= 2 and a[1] == 0 and a[2] == 0) return !printf("No\n");
+  if (n >= 2 and a[n] == 0 and a[n-1] == 0) return !printf("No\n");
+
+  p[1] = 1;
+  for (int i = 2; i <= n; i++) {
+    if (a[i] == a[i-1]) p[i] = 1 + p[i-1];
+    else p[i] = 1;
+  }
+  //for (int i = 1; i <= n; i++) db(i _ a[i] _ p[i]);
+
+  for (int i = 1; i <= n; i++) {
+    if (a[i] and p[i] > 1) return !printf("No\n");
+    if (!a[i] and p[i] > 2) return !printf("No\n");
+  }
+  printf("Yes\n");
   return 0;
 }

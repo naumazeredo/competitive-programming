@@ -38,8 +38,41 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int n, a[N], m[N];
+vector<int> p[4];
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &n);
+  for (int i = 1; i <= n; i++) {
+    scanf("%d", &a[i]);
+    p[a[i]].push_back(i);
+  }
+
+  vector<int> ans;
+  for (int x : p[3]) {
+    ans.push_back(x-1);
+    ans.push_back(x);
+    ans.push_back(x+1);
+    ans.push_back(x);
+    m[x] = 1;
+  }
+
+  for (int x : p[2]) {
+    if (x > 1 and !m[x-1]) {
+      ans.push_back(x-1);
+      ans.push_back(x);
+    } else {
+      ans.push_back(x+1);
+      ans.push_back(x);
+    }
+    m[x] = 1;
+  }
+
+  for (int x : p[1]) ans.push_back(x);
+
+  printf("%d\n", (int)ans.size());
+  for (int x : ans) printf("%d ", x);
+  printf("\n");
+
   return 0;
 }

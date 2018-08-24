@@ -36,10 +36,46 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 1e6+5;
+
+char s[N];
+int dp[3];
+
+char op(char x) {
+  if (x == 'R') return 'S';
+  if (x == 'B') return 'K';
+  return 'H';
+}
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%s", s);
+
+  int sz = 0;
+  vector<char> ans;
+
+  for (int i = 0; s[i]; i++) {
+    if (sz >= 2) {
+      set<char> ss;
+      ss.insert(s[i]);
+      ss.insert(s[i-1]);
+      ss.insert(s[i-2]);
+      if (ss.size() == 3) {
+        ans.pop_back();
+        ans.pop_back();
+        ans.push_back('C');
+        sz = 0;
+      } else {
+        ans.push_back(op(s[i]));
+        sz++;
+      }
+    } else {
+      ans.push_back(op(s[i]));
+      sz++;
+    }
+  }
+
+  for (char c : ans) printf("%c", c);
+  printf("\n");
+
   return 0;
 }

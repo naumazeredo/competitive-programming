@@ -38,8 +38,27 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int n, v[N];
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  while (~scanf("%d", &n) and n) {
+    while (~scanf("%d", &v[1]) and v[1]) {
+      for (int i = 2; i <= n; i++) scanf("%d", &v[i]);
+
+      int j = 1;
+      vector<int> s;
+      for (int i = 1; i <= n; i++) {
+        s.push_back(i);
+        while (s.size() and s.back() == v[j]) {
+          db(j);
+          s.pop_back();
+          j++;
+        }
+      }
+
+      printf("%s\n", j == n+1 and s.empty() ? "Yes" : "No");
+    }
+    printf("\n");
+  }
   return 0;
 }

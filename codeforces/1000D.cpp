@@ -1,14 +1,8 @@
-// @subject: 
-// @diff: 
+// @subject: dp
+// @diff: 3
 
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
-
 using namespace std;
-using namespace __gnu_pbds;
-
-typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
 
 #define st first
 #define nd second
@@ -35,11 +29,29 @@ typedef pair<ll, ll> pll;
 typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
-const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int INF = 0x3f3f3f3f, MOD = 998244353;
+const int N = 1e3+5;
+
+int n, a[N], dp[2][N];
+
+ll add(ll a, ll b) {
+  a += b;
+  if (a >= MOD) a -= MOD;
+  return a;
+}
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &n);
+  for (int i = 0; i < n; i++) scanf("%d", &a[i]);
+
+  for (int i = 0; i < n; i++) {
+    for (int j = 0; j < n; j++) dp[1][j] = dp[0][j];
+    if (a[i] > 0 and a[i] < n) dp[1][a[i]] = add(dp[1][a[i]], add(dp[0][0], 1));
+    for (int j = 0; j < n; j++) dp[1][j] = add(dp[1][j], dp[0][j+1]);
+    swap(dp[0], dp[1]);
+  }
+
+  printf("%d\n", dp[0][0]);
+
   return 0;
 }

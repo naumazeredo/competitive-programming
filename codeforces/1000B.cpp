@@ -1,14 +1,8 @@
-// @subject: 
-// @diff: 
+// @subject: prefix sum
+// @diff: 2
 
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
-
 using namespace std;
-using namespace __gnu_pbds;
-
-typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
 
 #define st first
 #define nd second
@@ -38,8 +32,24 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int n, m, a[N], pre[N], s[N];
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%d", &n, &m);
+  for (int i = 1; i <= n; i++) scanf("%d", &a[i]);
+  a[n+1] = m;
+
+  int tot = 0;
+  for (int i = 1; i <= n+1; i++) {
+    if (i%2) tot += a[i] - a[i-1];
+    s[i] = s[i-1] + a[i]-a[i-1];
+    pre[i] = tot;
+  }
+
+  int ans = tot;
+  for (int i = 1; i <= n; i+=2) if (a[i+1]-a[i]>1) ans = max(ans, (m-tot-s[i]+pre[i])+pre[i]-1);
+  for (int i = 1; i <= n+1; i+=2) if (a[i]-a[i-1]>1) ans = max(ans, (m-tot-s[i]+pre[i])+pre[i]-1);
+  printf("%d\n", ans);
+
   return 0;
 }

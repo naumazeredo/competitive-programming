@@ -38,8 +38,46 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int n, m;
+char s[N];
+int ans[300];
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%s", &m, s);
+  n = strlen(s);
+
+  for (char c = 'a'; c <= 'z'; c++) {
+    int ma = 0, cnt = 0;
+    for (int i = 0; i < n; i++) {
+      if (s[i] <= c) cnt = 0;
+      else cnt++;
+      ma = max(ma, cnt);
+    }
+
+    if (ma < m) {
+      int l = -1, b = -1;
+      for (int i = 0; i < n; i++) {
+        if (s[i] < c) {
+          l = i;
+          ans[s[i]]++;
+        }
+
+        if (s[i] == c) b = i;
+
+        if (i - l >= m) {
+          l = b;
+          ans[s[l]]++;
+        }
+      }
+
+      for (char i = 'a'; i <= 'z'; i++)
+        while (ans[i]--)
+          printf("%c", i);
+      printf("\n");
+
+      return 0;
+    }
+  }
+
   return 0;
 }

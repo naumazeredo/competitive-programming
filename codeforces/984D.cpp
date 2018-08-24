@@ -1,14 +1,5 @@
-// @subject: 
-// @diff: 
-
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
-
 using namespace std;
-using namespace __gnu_pbds;
-
-typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
 
 #define st first
 #define nd second
@@ -36,10 +27,26 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 5e3+5;
+
+int n, a[N], q, l, r, dp[N][N], ans[N][N];
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &n);
+  for (int i = 1; i <= n; i++) scanf("%d", &a[i]);
+
+  for (int i = 1; i <= n; i++) dp[i][1] = a[i];
+  for (int s = 2; s <= n; s++) for (int i = 1; i <= n; i++)
+    dp[i][s] = dp[i][s-1]^dp[i+1][s-1];
+
+  for (int i = 1; i <= n; i++) ans[i][1] = dp[i][1];
+  for (int s = 2; s <= n; s++) for (int i = 1; i <= n; i++)
+    ans[i][s] = max(dp[i][s], max(ans[i][s-1], ans[i+1][s-1]));
+
+  scanf("%d", &q);
+  for (int i = 0; i < q; i++) {
+    scanf("%d%d", &l, &r);
+    printf("%d\n", ans[l][r-l+1]);
+  }
   return 0;
 }

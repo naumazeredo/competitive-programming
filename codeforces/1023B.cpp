@@ -38,8 +38,12 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+ll n, k;
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%lld%lld", &n, &k);
+  if (k >= 2*n) printf("0\n");
+  else if (k <= n+1) printf("%lld\n", ((k-1) - (k%2==0))/2);
+  else printf("%lld\n", ((2*n-k+1) - (k%2==0))/2);
   return 0;
 }

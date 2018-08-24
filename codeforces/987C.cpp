@@ -2,13 +2,7 @@
 // @diff: 
 
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
-
 using namespace std;
-using namespace __gnu_pbds;
-
-typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
 
 #define st first
 #define nd second
@@ -36,10 +30,28 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 3e3+5;
+
+int n, s[N], c[N];
+int dp[4][N];
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &n);
+  for (int i = 1; i <= n; i++) scanf("%d", &s[i]);
+  for (int i = 1; i <= n; i++) scanf("%d", &c[i]);
+
+  memset(dp, 63, sizeof dp);
+  for (int i = 0; i < n; i++) dp[1][i] = c[i];
+  for (int i = 2; i < 4; i++)
+    for (int j = 1; j <= n; j++)
+      for (int k = 1; k < j; k++)
+        if (s[k] < s[j])
+          dp[i][j] = min(dp[i][j], dp[i-1][k] + c[j]);
+
+  int ans = INF;
+  for (int i = 1; i <= n; i++) ans = min(ans, dp[3][i]);
+  if (ans == INF) ans = -1;
+  printf("%d\n", ans);
+
   return 0;
 }

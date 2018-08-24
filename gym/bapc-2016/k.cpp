@@ -35,11 +35,47 @@ typedef pair<ll, ll> pll;
 typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
-const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int INF = 0x3f3f3f3f, MOD = 123456789;
+const int N = 1e6+5;
+
+int l, s;
+int dp[N], p2[N];
+
+int add(ll a, ll b) {
+  a += b;
+  if (a >= MOD) a -= MOD;
+  return a;
+}
+
+int sub(ll a, ll b) {
+  a -= b;
+  if (a < 0) a += MOD;
+  return a;
+}
+
+int mul(ll a, ll b) {
+  return (a*b)%MOD;
+}
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%d", &l, &s);
+
+  p2[0] = 1;
+  for (int i = 1; i < l; i++)
+    p2[i] = add(p2[i-1], p2[i-1]);
+
+  dp[0] = 1;
+  int sum = 1;
+  for (int i = 1; i <= l; i++) {
+    int d = i > s ? dp[i-s-1] : 0;
+    dp[i] = sub(sum, d);
+    sum = sub(add(sum, dp[i]), d);
+  }
+
+  int ans = dp[l];
+  for (int i = 3; i <= s+1; i++)
+    ans = add(ans, mul(i-2, dp[l-i+1]));
+
+  printf("%d\n", ans);
   return 0;
 }

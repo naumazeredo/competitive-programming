@@ -38,8 +38,19 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int n, m, a[N], b[N], o[N];
+ll s;
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%d", &n, &m);
+  for (int i = 0; i < n; i++) scanf("%d%d", &a[i], &b[i]), o[i] = i, s += a[i];
+  sort(o,o+n, [](int i, int j) { return a[i]-b[i] > a[j]-b[j]; });
+
+  int ans = 0;
+  for (int i = 0; i < n and s > m; i++, ans++)
+    s += b[o[i]] - a[o[i]];
+
+  printf("%d\n", s > m ? -1 : ans);
+
   return 0;
 }

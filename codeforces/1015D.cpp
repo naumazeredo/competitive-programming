@@ -38,8 +38,31 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int n, k;
+ll s;
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%d%lld", &n, &k, &s);
+  if (k > s or 1ll*(n-1)*k < s) return !printf("NO\n");
+
+  vector<int> ans;
+  int p = 1;
+  for (; k; k--) {
+    ll ma = s-(k-1);
+    ll mi = s-1ll*(n-1)*(k-1);
+
+    ll np = min<ll>(p+ma, n);
+    if (np - p < mi or np == p) np = max<ll>(p-ma, 1);
+
+    s -= abs(np - p);
+    p = np;
+
+    ans.push_back(p);
+  }
+
+  printf("YES\n");
+  for (int x : ans) printf("%d ", x);
+  printf("\n");
+
   return 0;
 }

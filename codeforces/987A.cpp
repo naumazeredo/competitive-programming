@@ -2,13 +2,7 @@
 // @diff: 
 
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
-
 using namespace std;
-using namespace __gnu_pbds;
-
-typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
 
 #define st first
 #define nd second
@@ -39,6 +33,28 @@ const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
 int main() {
+  map<string, string> m;
+  m["purple"] = "Power";
+  m["green"] = "Time";
+  m["blue"] = "Space";
+  m["orange"] = "Soul";
+  m["red"] = "Reality";
+  m["yellow"] = "Mind";
+
+  int n;
+  scanf("%d", &n);
+
+  set<string> s;
+  string t;
+  for (int i = 0; i < n; i++) cin >> t, s.insert(t);
+
+  set<string> ans;
+  for (auto& x : m)
+    if (!s.count(x.st)) ans.insert(x.nd);
+
+  printf("%d\n", (int)ans.size());
+  for (auto& x : ans) printf("%s\n", x.c_str());
+
   //freopen("in", "r", stdin);
   //freopen("out", "w", stdout);
   return 0;

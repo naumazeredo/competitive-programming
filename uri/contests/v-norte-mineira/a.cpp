@@ -1,14 +1,5 @@
-// @subject: 
-// @diff: 
-
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
-
 using namespace std;
-using namespace __gnu_pbds;
-
-typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
 
 #define st first
 #define nd second
@@ -38,8 +29,20 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int n, m, k, a, v[N];
+ll ans;
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  while (~scanf("%d%d%d", &n, &m, &k)) {
+    memset(v, 0, sizeof(v));
+    ans = 0;
+    for (int i = 0; i < n; i++) scanf("%d", &a), v[a%k]++;
+    for (int i = 0; i < m; i++) {
+      scanf("%d", &a);
+      a = (k - (a%k))%k;
+      ans += v[a];
+    }
+    printf("%lld\n", ans);
+  }
   return 0;
 }

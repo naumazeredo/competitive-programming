@@ -1,14 +1,5 @@
-// @subject: 
-// @diff: 
-
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
-
 using namespace std;
-using namespace __gnu_pbds;
-
-typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
 
 #define st first
 #define nd second
@@ -36,10 +27,37 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 1e2+5;
+
+int n;
+int g[4][N][N];
+int v[4];
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &n);
+  for (int p = 0; p < 4; p++)
+    for (int i = 0; i < n; i++)
+      for (int j = 0; j < n; j++)
+        scanf("%1d", &g[p][i][j]);
+
+  for (int p = 0; p < 4; p++)
+    for (int i = 0; i < n; i++)
+      for (int j = 0; j < n; j++)
+        v[p] += ((i+j)&1)^g[p][i][j];
+
+  int ans = INF;
+  vector<int> vec;
+  vec.push_back(0); vec.push_back(0);
+  vec.push_back(1); vec.push_back(1);
+
+  do {
+    int val = 0;
+    for (int i = 0; i < 4; i++)
+      val += vec[i] ? n*n - v[i] : v[i];
+    ans = min(ans, val);
+  } while (next_permutation(vec.begin(), vec.end()));
+
+  printf("%d\n", ans);
+
   return 0;
 }

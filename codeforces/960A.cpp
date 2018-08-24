@@ -1,14 +1,5 @@
-// @subject: 
-// @diff: 
-
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
-
 using namespace std;
-using namespace __gnu_pbds;
-
-typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
 
 #define st first
 #define nd second
@@ -38,8 +29,24 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+char s[N];
+int c[300], n;
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%s", s);
+  n = strlen(s);
+
+  for (int i = 0; i < n; i++) c[s[i]]++;
+
+  if (!(c['a'] and c['b'] and c['c'] and (c['c'] == c['a'] or c['c'] == c['b'])))
+    return printf("NO\n"), 0;
+
+  int i = 0;
+  for (; s[i] == 'a' and i < n; i++) ;
+  for (; s[i] == 'b' and i < n; i++) ;
+  for (; s[i] == 'c' and i < n; i++) ;
+
+  printf("%s\n", i==n ? "YES" : "NO");
+
   return 0;
 }

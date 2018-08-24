@@ -2,13 +2,7 @@
 // @diff: 
 
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
-
 using namespace std;
-using namespace __gnu_pbds;
-
-typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
 
 #define st first
 #define nd second
@@ -34,12 +28,15 @@ typedef pair<int, pii> piii;
 typedef pair<ll, ll> pll;
 typedef vector<int> vi;
 
-const ld EPS = 1e-9, PI = acos(-1.);
-const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const ll LINF = 0x3f3f3f3f3f3f3f3f;
+
+ll n, m, a, b;
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%lld%lld%lld%lld", &n, &m, &a, &b);
+  n %= m;
+
+  printf("%lld\n", min(n*b, (m-n)*a));
+
   return 0;
 }

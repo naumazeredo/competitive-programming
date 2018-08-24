@@ -36,10 +36,38 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 2e5+5;
+
+int c, p, x, l, cnt[N], sz[N], out[N];
+vector<int> adj[N];
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%d%d%d", &c, &p, &x, &l);
+  for (int a, b, i = 0; i < p; i++) {
+    scanf("%d%d", &a, &b);
+    adj[a].push_back(b);
+    adj[b].push_back(a);
+    cnt[a]++; sz[a]++;
+    cnt[b]++; sz[b]++;
+  }
+
+  queue<int> q;
+  out[l] = 1;
+  q.push(l);
+
+  while (q.size()) {
+    int u = q.front(); q.pop();
+
+    for (int v : adj[u]) if (!out[v]) {
+      cnt[v]--;
+      if (2*cnt[v] <= sz[v]) {
+        q.push(v);
+        out[v] = 1;
+      }
+    }
+  }
+
+  printf("%s\n", out[x] ? "leave" : "stay");
+
   return 0;
 }

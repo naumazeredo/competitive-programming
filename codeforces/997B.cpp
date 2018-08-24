@@ -38,8 +38,29 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+const int v[] = {1, 5, 10, 50};
+
+int n;
+ll ans[80];
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  set<int> g;
+  for (int x : v) g.insert(x);
+  ans[1] = 4;
+
+  for (int i = 2; i <= 60; i++) {
+    set<int> t;
+    for (int x : g)
+      for (int y : v)
+        t.insert(x+y);
+    swap(g, t);
+    ans[i] = g.size();
+  }
+
+  //for (int i = 1; i <= 60; i++) db(i _ ans[i] _ ans[i]-ans[i-1]);
+
+  scanf("%d", &n);
+  printf("%lld\n", n <= 60 ? ans[n] : ans[60] + 49ll*(n-60));
+
   return 0;
 }

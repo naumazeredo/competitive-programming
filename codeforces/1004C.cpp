@@ -38,8 +38,25 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int n, a[N], m[N], v[N];
+int cnt;
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &n);
+  for (int i = 1; i <= n; i++) scanf("%d", &a[i]);
+
+  ll ans = 0;
+  for (int i = 1; i <= n; i++) {
+    if (m[a[i]]) ans -= v[a[i]];
+    v[a[i]] = cnt;
+    ans += v[a[i]];
+
+
+    cnt += !m[a[i]];
+    m[a[i]] = 1;
+
+    //db(i _ v[a[i]] _ ans _ cnt);
+  }
+  printf("%lld\n", ans);
   return 0;
 }

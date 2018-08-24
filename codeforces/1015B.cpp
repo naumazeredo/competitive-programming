@@ -36,10 +36,33 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 55;
+
+int n;
+char s[N], t[N];
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%s%s", &n, s, t);
+
+  vector<int> ans;
+
+  for (int i = 0; i < n; i++) {
+    int ok = 0;
+    if (s[i] == t[i]) ok = 1;
+    for (int j = i+1; j < n and !ok; j++) if (s[j] == t[i]) {
+      ok = 1;
+      for (int k = j-1; k >= i; k--) {
+        ans.push_back(k+1);
+        swap(s[k], s[k+1]);
+      }
+    }
+
+    if (!ok) return !printf("-1\n");
+  }
+
+  printf("%d\n", (int)ans.size());
+  for (int x : ans) printf("%d ", x);
+  printf("\n");
+
   return 0;
 }

@@ -1,14 +1,5 @@
-// @subject: 
-// @diff: 
-
 #include <bits/stdc++.h>
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
-
 using namespace std;
-using namespace __gnu_pbds;
-
-typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
 
 #define st first
 #define nd second
@@ -36,10 +27,39 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 1e2+5;
+
+int n, m;
+int g[N][N], v[N][N];
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%d", &n, &m);
+  for (int i = 1; i <= n; i++) for (int j = 1; j <= m; j++) {
+    char c;
+    scanf(" %c", &c);
+    if (c == '*') {
+      v[i-1][j-1]++;
+      v[i-1][j]++;
+      v[i-1][j+1]++;
+      v[i][j-1]++;
+      v[i][j+1]++;
+      v[i+1][j-1]++;
+      v[i+1][j]++;
+      v[i+1][j+1]++;
+
+      g[i][j] = -1;
+    } else if (c >= '1' and c <= '9') {
+      g[i][j] = c-'0';
+    } else {
+      g[i][j] = 0;
+    }
+  }
+
+  for (int i = 1; i <= n; i++) for (int j = 1; j <= m; j++)
+    if (g[i][j] >= 0 and v[i][j] != g[i][j])
+      return !printf("NO\n");
+
+  printf("YES\n");
+
   return 0;
 }
