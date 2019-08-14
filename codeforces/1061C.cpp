@@ -37,10 +37,47 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 1e5+5, M = 1e6+5;
+
+int n, a[N];
+vector<int> d[M];
+ll val[M];
+
+ll add(ll a, ll b) {
+  a += b;
+  if (a >= MOD) a -= MOD;
+  return a;
+}
+
+ll sub(ll a, ll b) {
+  a -= b;
+  if (a < 0) a += MOD;
+  return a;
+}
+
+ll mul(ll a, ll b) {
+  return a*b%MOD;
+}
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  for (ll i = 1; i < M; i++)
+    for (ll j = i; j < M; j+=i)
+      d[j].push_back(i);
+
+  scanf("%d", &n);
+
+  ll ans = 0;
+  val[0] = 1;
+  for (int i = 0; i < n; i++) {
+    scanf("%d", &a[i]);
+
+    for (int j = (int)d[a[i]].size()-1; j >= 0; j--) {
+      int x = d[a[i]][j];
+      val[x] = add(val[x], val[x-1]);
+      ans = add(ans, val[x-1]);
+    }
+  }
+
+  printf("%lld\n", ans);
   return 0;
 }

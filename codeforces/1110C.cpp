@@ -37,10 +37,66 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 1e7+5;
+
+int n;
+
+int ans[] = {
+0,
+0,
+1,
+1,
+5,
+1,
+21,
+1,
+85,
+73,
+341,
+89,
+1365,
+1,
+5461,
+4681,
+21845,
+1,
+87381,
+1,
+349525,
+299593,
+1398101,
+178481,
+5592405,
+1082401
+};
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  /*
+  for (int i = 0; i < 26; i++) {
+    int a = (1<<i)-1;
+    for (int b = 1; b < a; b++)
+      ans[i] = max(ans[i], __gcd(a^b, a&b));
+    db(i _ a _ ans[i]);
+  }
+  */
+
+  scanf("%d", &n);
+  for (int a, i = 0; i < n; i++) {
+    scanf("%d", &a);
+
+    int ok = 0;
+    for (int i = 0; i < 26; i++) if (a == (1<<i)-1) {
+      printf("%d\n", ans[i]);
+      ok = 1;
+    }
+
+    if (ok) continue;
+
+    ok = 0;
+    for (int i = 0; i < 26; i++)
+      if (a&(1<<i)) ok = (1<<(i+1))-1;
+
+    printf("%d\n", ok);
+  }
   return 0;
 }

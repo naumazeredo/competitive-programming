@@ -39,8 +39,31 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int n, xlo, xhi, a, b, o[N];
+ll ylo[N], yhi[N];
+
+ll calc(ll x) { return a * x + b; }
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%d%d", &n, &xlo, &xhi);
+
+  for (int i = 0; i < n; i++) {
+    scanf("%d%d", &a, &b);
+    ylo[i] = calc(xlo);
+    yhi[i] = calc(xhi);
+    o[i] = i;
+  }
+
+  sort(o, o+n, [](int i, int j){ return make_pair(ylo[i], yhi[i]) < make_pair(ylo[j], yhi[j]); });
+
+  set<pll> t;
+  for (int i = 0; i < n; i++) {
+    int c = o[i];
+    auto x = t.insert({ yhi[c], i });
+    auto it = x.st; it++;
+    if (it != t.end()) return printf("YES\n"), 0;
+  }
+  printf("NO\n");
+
   return 0;
 }

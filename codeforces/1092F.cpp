@@ -37,10 +37,35 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 2e5+5;
+
+int n, a[N];
+vector<int> adj[N];
+ll sum, sa[N], sw[N], s[N];
+ll ans;
+
+void dfs_1(int u, int p) {
+  sa[u] += a[u];
+  for (int v : adj[u]) if (v != p) {
+    dfs_1(v, u);
+    sa[u] += sa[v];
+    sw[u] += sw[v] + sa[v];
+  }
+}
+
+void dfs_2(int u, int p, ll acc) {
+  acc += sum - sa[u];
+  ans = max(ans, acc + sw[u]);
+  for (int v : adj[u]) if (v != p)
+    dfs_2(v, u, acc + sw[u] - sw[v] - sa[v]);
+}
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &n);
+  for (int i = 1; i <= n; i++) scanf("%d", &a[i]), sum += a[i];
+  for (int u, v, i = 0; i < n-1; i++) scanf("%d%d", &u, &v), adj[u].push_back(v), adj[v].push_back(u);
+  dfs_1(1, 0);
+  dfs_2(1, 0, 0);
+  printf("%lld\n", ans);
   return 0;
 }

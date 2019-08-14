@@ -1,5 +1,5 @@
-// @subject: 
-// @diff: 
+// @subject: grundy
+// @diff: med
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -37,10 +37,31 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 1e2+5;
+
+int g[N][N], n;
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  for (int i = 1; i < N; i++) for (int j = 1; j < N; j++) {
+    int k[400] = {};
+    for (int u = 1; u < i; u++) if (i - u != j) k[g[i-u][j]]=1;
+    for (int u = 1; u < j; u++) if (i != j - u) k[g[i][j-u]]=1;
+    for (int u = 1; u < min(i, j); u++) k[g[i-u][j-u]]=1;
+    int mex = 0;
+    for (; k[mex]; mex++) ;
+    g[i][j] = mex;
+  }
+
+  int xr = 0;
+
+  scanf("%d", &n);
+  for (int u, v, i = 0; i < n; i++) {
+    scanf("%d%d", &u, &v);
+    if (u == v) return !printf("Y\n");
+    xr ^= g[u][v];
+  }
+
+  printf("%c\n", xr ? 'Y' : 'N');
+
   return 0;
 }

@@ -1,5 +1,5 @@
-// @subject: 
-// @diff: 
+// @subject: inversion count
+// @diff: easy
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -39,8 +39,41 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int x, y, h[2];
+pii p[N];
+int bit[N];
+
+void add(int p) { for (p+=2; p < N; p+=p&-p) bit[p]++; }
+int get(int p) {
+  int r = 0;
+  for (p+=2; p; p-=p&-p) r += bit[p];
+  return r;
+}
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%d%d%d", &x, &y, &h[0], &h[1]);
+  ll ans = 1ll*(h[0]+1)*(h[1]+1);
+
+  for (int j = 0; j < 2; j++) {
+    vector<int> c;
+    for (int i = 0; i < h[j]; i++) {
+      scanf("%d%d", &p[i].st, &p[i].nd);
+      c.push_back(p[i].nd);
+    }
+    sort(p, p+h[j]);
+
+    sort(c.begin(), c.end());
+    c.erase(unique(c.begin(), c.end()), c.end());
+    memset(bit, 0, sizeof bit);
+
+    for (int i = 0; i < h[j]; i++) {
+      ll y = lower_bound(c.begin(), c.end(), p[i].nd) - c.begin();
+      ans += i-get(y-1);
+      add(y);
+    }
+  }
+
+  printf("%lld\n", ans);
+
   return 0;
 }

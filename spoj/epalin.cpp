@@ -9,7 +9,6 @@ using namespace std;
 using namespace __gnu_pbds;
 
 typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
-std::mt19937_64 rng((int) std::chrono::steady_clock::now().time_since_epoch().count());
 
 #define st first
 #define nd second
@@ -39,8 +38,40 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+// Knuth-Morris-Pratt - String Matching O(n+m)
+char t[N];
+string s, p;
+int b[N], n, m; // n = strlen(s), m = strlen(p);
+
+void kmppre() {
+  b[0] = -1;
+  for (int i = 0, j = -1; i < m; b[++i] = ++j)
+    while (j >= 0 and p[i] != p[j])
+      j = b[j];
+}
+
+int kmp() {
+  int i, j;
+  for (i = 0, j = 0; i < n;) {
+    while (j >= 0 and s[i] != p[j]) j=b[j];
+    i++, j++;
+  }
+  return j;
+}
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  while (~scanf("%s", t)) {
+    s = t;
+    n = m = s.size();
+    reverse(t, t+n);
+    p = t;
+
+    kmppre();
+    int x = kmp();
+    p = s.substr(0, n-x);
+    reverse(p.begin(), p.end());
+    s += p;
+    printf("%s\n", s.c_str());
+  }
   return 0;
 }

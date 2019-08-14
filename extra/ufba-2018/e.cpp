@@ -39,8 +39,19 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+char s[N];
+int v[N];
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%s", s);
+  int n = strlen(s);
+  for (int i = 0; i < n; i++) s[i] -= '0';
+
+  int x = s[0];
+  for (int i = 1; i < n; i++) x ^= s[i];
+
+  if (x) printf("NO\n");
+  else printf("YES\n");
+
   return 0;
 }

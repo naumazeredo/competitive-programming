@@ -1,5 +1,5 @@
-// @subject: 
-// @diff: 
+// @subject: simple
+// @diff: trivial
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -39,8 +39,12 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int n;
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &n);
+  int ans = 0;
+  for (int x, i = 0; i < n; i++) scanf("%d", &x), ans += x!=1;
+  printf("%d\n", ans);
   return 0;
 }

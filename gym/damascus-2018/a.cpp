@@ -39,8 +39,13 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int t, a, b;
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &t);
+  while (t--) {
+    scanf("%d%d", &a, &b);
+    printf("%d\n", 1ll*a*a > 2ll*b*b ? 1 : 2);
+  }
   return 0;
 }

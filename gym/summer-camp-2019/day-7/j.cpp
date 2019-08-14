@@ -37,10 +37,31 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 2e3+5;
+
+int n, m;
+
+struct jav {
+  int d, c, s;
+} ja[N];
+
+struct seg {
+  pii st[4*N];
+};
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%d", &n, &m);
+
+  vector<int> coord;
+  for (int d, c, s, i = 0; i < n; i++) {
+    scanf("%d%d%d", &d, &c, &s);
+    ja[i] = { d, c, s };
+    coord.push_back(d);
+  }
+
+  sort(coord.begin(), coord.end());
+  coord.erase(unique(coord.begin(), coord.end()), coord.end());
+  for (int i = 0; i < n; i++)
+    ja[i].d = lower_bound(coord.begin(), coord.end(), ja[i].d) - coord.begin();
   return 0;
 }

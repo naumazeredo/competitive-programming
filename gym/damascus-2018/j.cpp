@@ -39,8 +39,28 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int t, l[2], r[2], p[2], d[2], k;
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &t);
+  while (t--) {
+    for (int i = 0; i < 2; i++) {
+      scanf("%d%d%d%d", &l[i], &r[i], &p[i], &d[i]), d[i] = d[i] ? 1 : -1;
+      if (p[i] == l[i]) d[i] = 1;
+      if (p[i] == r[i]) d[i] = -1;
+    }
+    scanf("%d", &k);
+
+    int ans = 0;
+    for (int i = 1; i <= k; i++) {
+      for (int j = 0; j < 2; j++) {
+        p[j] += d[j];
+        if (p[j] == l[j] or p[j] == r[j]) d[j] *= -1;
+      }
+
+      if (p[0] == p[1]) ans++;
+    }
+    printf("%d\n", ans);
+  }
   return 0;
 }

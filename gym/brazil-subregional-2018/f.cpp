@@ -1,5 +1,5 @@
-// @subject: 
-// @diff: 
+// @subject: bitmask dp, knapsack
+// @diff: med
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -37,10 +37,37 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 10, M = 1<<N, T = 86405;
+
+int n;
+vector<piii> s[T];
+int dp[T][M];
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &n);
+  for (int m, i = 0; i < n; i++) {
+    scanf("%d", &m);
+    for (int u, v, c, j = 0; j < m; j++) {
+      scanf("%d%d%d", &u, &v, &c);
+      s[v].push_back({ (1<<i), { u, c } });
+    }
+  }
+
+  memset(dp, -1, sizeof dp);
+  dp[0][0] = 0;
+  for (int j = 1; j < T; j++) for (int i = 0; i < (1<<n); i++) {
+    dp[j][i] = max(dp[j][i], dp[j-1][i]);
+    for (auto x : s[j]) {
+      int b = x.st;
+      int u = x.nd.st;
+      int c = x.nd.nd;
+      if (~dp[u][i]) {
+        dp[j][i|b] = max(dp[j][i|b], dp[u][i] + c);
+      }
+    }
+  }
+
+  printf("%d\n", dp[T-1][(1<<n)-1]);
+
   return 0;
 }

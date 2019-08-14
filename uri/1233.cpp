@@ -39,8 +39,29 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int n, p[N];
+vector<ll> primes;
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  for (ll i = 2; i < N; i++) if (!p[i]) {
+    for (ll j = i*i; j < N; j+=i) p[j] = 1;
+    primes.push_back(i);
+  }
+
+  while (~scanf("%d", &n)) {
+    int phi = n;
+    for (ll i = 0, x = primes[i]; x*x <= n; i++, x = primes[i]) if (n % x == 0) {
+      phi /= x;
+      phi *= x-1;
+      while (n % x == 0) n /= x;
+    }
+    if (n > 1) {
+      phi /= n;
+      phi *= n-1;
+    }
+
+    printf("%d\n", phi/2);
+  }
+
   return 0;
 }

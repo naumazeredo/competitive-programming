@@ -39,8 +39,14 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int b, k, a[N];
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%d", &b, &k);
+  for (int i = 0; i < k; i++) scanf("%d", &a[i]);
+  if (b%2 == 0) return printf("%s\n", a[k-1]&1 ? "odd" : "even"), 0;
+  int p = 0;
+  for (int i = 0; i < k; i++) p += a[i]&1;
+  printf("%s\n", p&1 ? "odd" : "even");
   return 0;
 }

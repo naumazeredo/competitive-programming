@@ -39,8 +39,14 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int n, a[N], b[N];
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &n);
+  for (int i = 1; i <= n; i++) scanf("%d", &a[i]);
+  a[n+1] = 1001;
+  int ans = 0;
+  for (int i = 1; i <= n; i++) if (a[i] == a[i-1]+1 and a[i] == a[i+1]-1) b[i] = b[i-1]+1, ans = max(ans, b[i]);
+  printf("%d\n", ans);
   return 0;
 }

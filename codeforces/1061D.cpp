@@ -39,8 +39,59 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int n, x, y;
+pii qs[N];
+
+ll add(ll a, ll b) {
+  a += b;
+  if (a >= MOD) a -= MOD;
+  return a;
+}
+
+ll sub(ll a, ll b) {
+  a -= b;
+  if (a < 0) a += MOD;
+  return a;
+}
+
+ll mul(ll a, ll b) {
+  return a*b%MOD;
+}
+
+ll buy(ll l, ll r) {
+  return x + y*(r-l);
+}
+
+ll keep(ll l, ll r) {
+  return y*(r-l);
+}
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%d%d", &n, &x, &y);
+  for (int i = 0; i < n; i++) scanf("%d%d", &qs[i].st, &qs[i].nd);
+  sort(qs, qs+n);
+
+  multiset<int> pre;
+  ll ans = 0;
+  for (int i = 0; i < n; i++) {
+    int l = qs[i].st;
+    int r = qs[i].nd;
+
+    auto it = pre.lower_bound(l);
+    if (it != pre.begin()) {
+      it--;
+      int pos = *it;
+      if (keep(pos, r) < buy(l, r)) {
+        ans = add(ans, keep(pos, r)%MOD);
+        pre.erase(it);
+      } else {
+        ans = add(ans, buy(l, r)%MOD);
+      }
+    } else {
+      ans = add(ans, buy(l, r)%MOD);
+    }
+    pre.insert(r);
+  }
+  printf("%lld\n", ans);
   return 0;
 }

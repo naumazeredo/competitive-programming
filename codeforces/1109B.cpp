@@ -37,10 +37,46 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 1e4+5;
+
+int n;
+char s[N];
+
+int pal(string& s) {
+  int l = s.length();
+  for (int i = 0; i < l; i++)
+    if (s[i] != s[l-i-1]) return 0;
+  return 1;
+}
+
+int check() {
+  for (int i = 0; i < n/2; i++) {
+    string t;
+    for (int j = i+1; j < n; j++) t += s[j];
+    for (int j = 0; j <= i; j++) t += s[j];
+    if (pal(t) and t != s) return 1;
+  }
+  return 2;
+}
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%s", s);
+  n = strlen(s);
+
+  int ok = 0;
+  for (int i = 0; s[i]; i++) if (s[i] != s[0]) { ok = 1; break; }
+
+  if (!ok) return printf("Impossible\n"), 0;
+
+  if (n&1) {
+    int ok = 0;
+    for (int i = 0; i < n/2; i++) if (s[i] != s[0]) { ok = 1; break; }
+    if (!ok) return printf("Impossible\n"), 0;
+    printf("2\n");
+  } else {
+    printf("%d\n", check());
+    //if (strncmp(s, s+n/2, n/2) != 0) return printf("1\n"), 0;
+  }
+
   return 0;
 }

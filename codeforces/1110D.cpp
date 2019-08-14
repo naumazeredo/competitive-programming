@@ -37,10 +37,31 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 1e6+5;
+
+int n, m, a, cnt[N];
+ll dp[N][4][4];
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%d", &n, &m);
+  for (int i = 0; i < n; i++) scanf("%d", &a), cnt[a]++;
+  for (int i = 1; i <= m; i++) db(i _ cnt[i]);
+  dbs("");
+
+  for (int i = 0; i <= m+1; i++)
+    for (int j = 0; j < 3; j++)
+      for (int k = 0; k < 3; k++)
+        dp[i][j][k] = -INF;
+
+  dp[1][0][0] = 0;
+  for (int i = 1; i <= m; i++) {
+    int c = cnt[i];
+    for (int j = 0; j < 3; j++) for (int k = 0; k < 3; k++)
+      for (int l = 0; l < 3 and j + k + l <= c; l++)
+        dp[i+1][k][l] = max(dp[i+1][k][l], dp[i][j][k] + l + (c-j-k-l)/3);
+  }
+
+  printf("%lld\n", dp[m+1][0][0]);
+
   return 0;
 }

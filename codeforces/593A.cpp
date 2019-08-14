@@ -39,8 +39,28 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int n, cnt[300];
+char s[105][N];
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &n);
+  for (int i = 0; i < n; i++) scanf("%s", s[i]);
+
+  int ans = 0;
+  for (char i = 'a'; i <= 'z'; i++) {
+    for (int j = 'a'; j <= 'z'; j++) if (i != j) {
+      int tmp = 0;
+      for (int k = 0; k < n; k++) {
+        int ok = 1;
+        for (int l = 0; s[k][l]; l++)
+          if (s[k][l] != i and s[k][l] != j) { ok = 0; break; }
+        if (ok) tmp += strlen(s[k]);
+      }
+
+      ans = max(ans, tmp);
+    }
+  }
+
+  printf("%d\n", ans);
   return 0;
 }

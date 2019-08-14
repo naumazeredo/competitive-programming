@@ -36,11 +36,44 @@ typedef pair<ll, ll> pll;
 typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
-const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int INF = 0x3f3f3f3f, MOD = 998244353;
+const int N = 2e5+5;
+
+int n, a[N];
+map<int, int> mi, ma;
+
+int fexp(ll a, ll b) {
+  ll r = 1;
+  for (a%=MOD; b; b>>=1, a=(a*a)%MOD) if (b&1) r=(r*a)%MOD;
+  return r;
+}
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &n);
+  for (int i = 0; i < n; i++) {
+    scanf("%d", &a[i]);
+    if (mi.count(a[i])) {
+      mi[a[i]] = min(mi[a[i]], i);
+      ma[a[i]] = max(ma[a[i]], i);
+    } else {
+      mi[a[i]] = i;
+      ma[a[i]] = i;
+    }
+  }
+
+  int cnt = 0;
+  int i = 0;
+  while (i < n) {
+    cnt++;
+    int last = ma[a[i]];
+    while (i < last) {
+      i++;
+      last = max(last, ma[a[i]]);
+    }
+    i++;
+  }
+
+  printf("%d\n", fexp(2, cnt-1));
+
   return 0;
 }

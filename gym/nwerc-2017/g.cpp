@@ -39,8 +39,45 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int n, m, k, s, t;
+vector<piii> adj[N];
+vector<int> v;
+
+int vis[N], cur;
+
+void dfs(int u) {
+  if (vis[u] == cur) return;
+  vis[u] = cur;
+
+  for (auto p : adj[u]) if (p.nd.st <= cur and cur <= p.nd.nd) dfs(p.st);
+}
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%d%d%d%d", &n, &m, &k, &s, &t);
+  for (int a, b, c, d, i = 0; i < m; i++) {
+    scanf("%d%d%d%d", &a, &b, &c, &d);
+    adj[a].push_back({ b, { c, d } });
+    v.push_back(c);
+    v.push_back(d);
+    if (c > 1) v.push_back(c-1);
+    if (d < k) v.push_back(d+1);
+  }
+  sort(v.begin(), v.end());
+  v.erase(unique(v.begin(), v.end()), v.end());
+
+  int ans = 0, l = -1;
+  for (int x : v) {
+    cur = x;
+    dfs(s);
+    if (vis[t] == x) {
+      ans += (~l) ? x - l : 1;
+      l = x;
+    } else {
+      ans += (~l) ? x-1 - l : 0;
+      l = -1;
+    }
+  }
+  printf("%d\n", ans);
+
   return 0;
 }

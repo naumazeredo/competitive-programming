@@ -9,7 +9,6 @@ using namespace std;
 using namespace __gnu_pbds;
 
 typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
-std::mt19937_64 rng((int) std::chrono::steady_clock::now().time_since_epoch().count());
 
 #define st first
 #define nd second
@@ -37,10 +36,53 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const ll LINF = 0x3f3f3f3f3f3f3f3f;
+const int N = 1e6+5, M = 65;
+
+int t, m[M], p[N];
+ll n, c[N];
+vector<ll> v[M];
+
+void pre() {
+  for (int i = 1; i < M; i++) m[i] = 1;
+  for (int i = 2; i < M; i++) if (!p[i]) {
+    for (int j = i; j < M; j++) {
+      p[j] = 1;
+      m[j] *= -1;
+      if ((j/i) % i == 0) m[j] = 0;
+    }
+  }
+
+  for (int i = 2; i < N; i++) c[i] = i * i;
+
+  for (int i = 3; i < M; i++)
+    for (int j = 2; j < N; j++)
+      if (c[i] < LINF / i)
+        v[i].push_back(c[i]), c[i] *= i;
+}
+
+ll solv(ll x) {
+  ll res = x-1;
+
+  ll sq = max<ll>(1, sqrt(x)-2);
+  while (sq*sq <= n) sq++; sq--;
+  res -= sq-1;
+
+  for (int i = 3; i < M; i++) {
+    int qnt = upper_bound(v[i].begin(), v[i].end(), x) - v[i].begin();
+    res += m[i] * qnt;
+  }
+
+  return res;
+}
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  pre();
+
+  scanf("%d", &t);
+  while (t--) {
+    scanf("%lld", &n);
+    printf("%lld\n", solv(n));
+  }
   return 0;
 }

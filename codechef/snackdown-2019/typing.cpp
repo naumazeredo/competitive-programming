@@ -39,8 +39,39 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int t, n;
+char s[30];
+int hand[300];
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  hand['d'] = hand['f'] = 0;
+  hand['j'] = hand['k'] = 1;
+
+  scanf("%d", &t);
+  while (t--) {
+    scanf("%d", &n);
+    int ans = 0;
+
+    map<string, int> x;
+    while (n--) {
+      scanf("%s", s);
+
+      int tot;
+      if (x.count(s)) {
+        tot = x[s];
+      } else {
+        tot = 2;
+        for (int i = 1; s[i]; i++) {
+          tot += 2;
+          if (hand[s[i]] == hand[s[i-1]]) tot += 2;
+        }
+        x[s] = tot/2;
+      }
+
+      ans += tot;
+    }
+
+    printf("%d\n", ans);
+  }
   return 0;
 }

@@ -39,8 +39,33 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int n;
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &n);
+  if (n == 1) return printf("1 0\n"), 0;
+  map<int, int> m;
+  int val = 1;
+  for (int i = 2; i <= n; i++) if (n%i==0) {
+    int cnt = 0;
+    while (n%i == 0) n /= i, cnt++;
+    m[i] = cnt;
+    val *= i;
+  }
+
+  int ans = 0;
+  ll ma = 0;
+  for (auto x : m) ma = max<ll>(ma, x.nd);
+
+  int extra = 0;
+  for (auto x : m) if (x.nd != ma) { extra = 1; break; }
+  if (ma&(ma-1)) extra = 1;
+
+  while (ma&(ma-1)) ma += ma&-ma;
+  while ((1ll<<ans) != ma) ans++, assert((1ll<<ans) <= ma);
+  ans += extra;
+
+  printf("%d %d\n", val, ans);
+
   return 0;
 }

@@ -37,10 +37,25 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 2e5+5;
+
+int n, a[N], b[N], p[N];
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &n);
+  for (int i = 0; i < n; i++) scanf("%d", &a[i]), p[a[i]] = n-i;
+  for (int i = 0; i < n; i++) scanf("%d", &b[i]);
+
+  int s = 0;
+  for (int i = 0; i < n; i++) {
+    if (s + p[b[i]] <= n) {
+      int cnt = 0;
+      while (a[s] != b[i]) s++, cnt++;
+      s++, cnt++;
+      printf("%d ", cnt);
+    } else printf("0 ");
+  }
+  printf("\n");
+
   return 0;
 }

@@ -37,10 +37,38 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 1e6+5;
+
+int p[N];
+vector<ll> v;
+ll a, b, k[N], r[N];
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  for (ll i = 2; i < N; i++) if (!p[i]) {
+    for (ll j = i*i; j < N; j+=i) p[j] = 1;
+    v.push_back(i);
+  }
+
+  scanf("%lld%lld", &a, &b);
+  for (ll x = a; x <= b; x++) k[x-a] = x, r[x-a] = 1;
+
+  for (ll p : v) {
+    ll x = (a+p-1)/p*p;
+    for (; x <= b; x += p) {
+      ll val = 1;
+      ll z = p;
+      while (k[x-a] % p == 0) val += z, k[x-a] /= p, z *= p;
+      r[x-a] *= val;
+    }
+  }
+
+  ll ans = 0;
+  for (ll i = a; i <= b; i++) {
+    if (k[i-a] != 1) r[i-a] *= 1+k[i-a];
+    ans += r[i-a];
+  }
+
+  printf("%lld\n", ans);
+
   return 0;
 }

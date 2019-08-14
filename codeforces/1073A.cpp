@@ -37,10 +37,29 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 1e3+5;
+
+int n, cnt[30];
+char s[N];
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%s", &n, s);
+  for (int i = 0; i < n; i++) {
+    memset(cnt, 0, sizeof cnt);
+    for (int j = i; j < n; j++) {
+      cnt[(int)s[j]-'a']++;
+
+      int sz = j-i+1;
+      int ok = 1;
+      for (int k = 0; k < 26; k++) if (cnt[k] > sz/2) ok = 0;
+      if (ok) {
+        printf("YES\n");
+        for (int k = i; k <= j; k++) printf("%c", s[k]);
+        printf("\n");
+        return 0;
+      }
+    }
+  }
+  printf("NO\n");
   return 0;
 }

@@ -39,8 +39,26 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int n, m, a[N];
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%d", &n, &m);
+  int ma = 0;
+  ll tot = 0;
+  for (int i = 0; i < n; i++) scanf("%d", &a[i]), ma = max(ma, a[i]), tot += a[i];
+  sort(a, a+n);
+
+  ll ans = 0;
+  int l = 0;
+
+  for (int i = 0; i < n; i++) {
+    if (a[i] > l) ans++, l++;
+    else ans++;
+  }
+
+  ans += ma-l;
+
+  printf("%lld\n", tot-ans);
+
   return 0;
 }

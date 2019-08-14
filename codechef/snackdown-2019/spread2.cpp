@@ -39,8 +39,22 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int t, n, a[N];
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &t);
+  while (t--) {
+    scanf("%d", &n);
+    for (int i = 1; i <= n; i++) scanf("%d", &a[i]);
+
+    int p = 2, x = a[1];
+    int ans = 0;
+    while (p <= n) {
+      ans++;
+      for (int tmp = x; tmp and p <= n; p++, tmp--) x += a[p];
+    }
+
+    printf("%d\n", ans);
+  }
   return 0;
 }

@@ -37,10 +37,45 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 1e3+5;
+
+int n, m, a[N], out[N];
+vector<pii> adj[N];
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%d", &n, &m);
+  for (int i = 1; i <= n; i++) scanf("%d", &a[i]);
+  for (int u, v, w, i = 0; i < m; i++) {
+    scanf("%d%d%d", &u, &v, &w);
+    adj[u].push_back({ v, w });
+    adj[v].push_back({ u, w });
+  }
+
+  while (1) {
+    ll worst = 0, worst_i = 0;
+
+    for (int i = 1; i <= n; i++) if (!out[i]) {
+      ll val = -a[i];
+      for (auto x : adj[i]) if (!out[x.st]) val += x.nd;
+      if (val < worst) worst = val, worst_i = i;
+    }
+
+    if (worst_i == 0) break;
+
+    out[worst_i] = 1;
+  }
+
+  ll ans = 0, sub = 0;
+  for (int i = 1; i <= n; i++) if (!out[i]) {
+    sub += a[i];
+    for (auto x : adj[i]) if (!out[x.st])
+      ans += x.nd;
+  }
+
+  ans /= 2;
+  ans -= sub;
+
+  printf("%lld\n", ans);
+
   return 0;
 }

@@ -1,5 +1,5 @@
-// @subject: 
-// @diff: 
+// @subject: string matching, brute force
+// @diff: easy
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -39,8 +39,20 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+char s[N], t[N];
+int n, m;
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%s%s", s, t);
+  n = strlen(s);
+  m = strlen(t);
+
+  int ans = 0;
+  for (int i = 0; i < n-m+1; i++) {
+    int ok = 1;
+    for (int j = 0; j < m and ok; j++) if (s[i+j]==t[j]) ok = 0;
+    ans += ok;
+  }
+  printf("%d\n", ans);
   return 0;
 }

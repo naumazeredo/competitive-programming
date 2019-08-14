@@ -36,11 +36,33 @@ typedef pair<ll, ll> pll;
 typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
-const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int INF = 0x3f3f3f3f, MOD = 7901;
+const int N = 1e3+5;
+
+int t, n, a[N], f[N];
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  f[0] = 1;
+  for (int i = 1; i < N; i++) f[i] = (f[i-1] * i) % MOD;
+
+  scanf("%d", &t);
+  while (t--) {
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++) scanf("%d", &a[i]);
+    sort(a, a+n);
+    a[n] = -1;
+
+    int ans = 1;
+    int cnt = 1;
+    for (int i = 1; i <= n; i++) {
+      if (a[i] == a[i-1]) cnt++;
+      else {
+        ans = (ans * f[cnt]) % MOD;
+        cnt = 1;
+      }
+    }
+
+    printf("%d\n", ans);
+  }
   return 0;
 }

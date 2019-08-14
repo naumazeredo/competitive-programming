@@ -39,8 +39,49 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+ll k;
+ll f[20][20], l[20][20], s[20], p[20];
+vector<int> ans;
+
+bool bt(int t, int d, ll acc) {
+  if (d == 0) return acc == 0;
+
+  int i = 9;
+  for (; i > 0 and i*f[t][d] > acc; i--) ;
+
+  for (; i >= 0 and i*f[t][d] + l[t][d-1] >= acc; i--) {
+    if (t == d and i == 0) break;
+    ans.push_back(i);
+    if (bt(t, d-1, acc - i*f[t][d])) return 1;
+    ans.pop_back();
+  }
+
+  return 0;
+}
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  p[0] = 1; s[0] = 1;
+  for (int i = 1; i < 20; i++) {
+    p[i] = 10 * p[i-1];
+    s[i] = s[i-1] + p[i];
+  }
+
+  for (int i = 1; i < 20; i++)
+    for (int j = 1; j <= i; j++) {
+      f[i][j] = s[j-1] + (i-j) * p[j-1];
+      l[i][j] = l[i][j-1] + 9*f[i][j];
+    }
+
+  scanf("%lld", &k);
+  for (int i = 1; i <= 15; i++) {
+    if (bt(i, i, k)) {
+      for (auto x : ans) printf("%d", x);
+      printf("\n");
+      return 0;
+    }
+  }
+
+  printf("-1\n");
+
   return 0;
 }

@@ -37,10 +37,25 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 2e4+5;
+
+int n, m, inf[N];
+
+struct tt { int t, s, d; } t[N];
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  while (~scanf("%d%d", &n, &m) and n) {
+    for (int i = 0; i < m; i++) scanf("%d%d%d", &t[i].t, &t[i].s, &t[i].d);
+    sort(t, t+m, [](tt a, tt b){ return a.t < b.t; });
+
+    memset(inf, 0, sizeof inf);
+    inf[1] = 1;
+    for (int i = 0; i < m; i++) inf[t[i].d] |= inf[t[i].s];
+
+    int ans = 0;
+    for (int i = 1; i <= n; i++) ans += inf[i];
+    printf("%d\n", ans);
+  }
+
   return 0;
 }

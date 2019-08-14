@@ -9,7 +9,6 @@ using namespace std;
 using namespace __gnu_pbds;
 
 typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
-std::mt19937_64 rng((int) std::chrono::steady_clock::now().time_since_epoch().count());
 
 #define st first
 #define nd second
@@ -37,10 +36,37 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 3e5+5;
+
+int n, m, a[N], b[N];
+vector<ll> va, vb;
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &n);
+  for (int i = 1; i <= n; i++) scanf("%d", &a[i]), va.push_back(a[i]);
+  scanf("%d", &m);
+  for (int i = 1; i <= m; i++) scanf("%d", &b[i]), vb.push_back(b[i]);
+
+  while (va.size()) {
+    if (va.back() == vb.back()) {
+      db(1);
+      va.pop_back();
+      vb.pop_back();
+    } else if (va.back() < vb.back()) {
+      if (va.size() < 2) return !printf("-1\n");
+      ll v = va.back(); va.pop_back();
+      v += va.back(); va.pop_back();
+      va.push_back(v);
+      n--;
+    } else {
+      if (vb.size() < 2) return !printf("-1\n");
+      ll v = vb.back(); vb.pop_back();
+      v += vb.back(); vb.pop_back();
+      vb.push_back(v);
+    }
+  }
+  if (vb.size()) return !printf("-1\n");
+
+  printf("%d\n", n);
   return 0;
 }

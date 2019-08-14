@@ -37,10 +37,35 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 35;
+
+int n, m;
+char g[N][N];
+ll dp[N][N];
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%d", &n, &m);
+  for (int i = 1; i <= n; i++) for (int j = 1; j <= m; j++) scanf(" %c", &g[i][j]);
+  for (int i = 1; i <= n; i++) {
+    int mb = 0, mr = m+1;
+    for (int j = m; j >= 1; j--) {
+      if (g[i][j] == 'R') mr = min(mr, j);
+      if (g[i][j] == 'B') mb = max(mb, j);
+    }
+
+    if (mr <= mb) return !printf("0\n");
+
+    ll acc = 0;
+    for (int j = m; j >= 0; j--) {
+      acc += dp[i-1][j];
+      if (mb <= j and j < mr)
+        dp[i][j] = (i == 1) ? 1 : acc;
+    }
+  }
+
+  ll ans = 0;
+  for (int j = 0; j <= m; j++) ans += dp[n][j];
+  printf("%lld\n", ans);
+
   return 0;
 }

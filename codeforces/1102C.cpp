@@ -37,10 +37,36 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 105;
+
+int n, x, y, a;
+multiset<int> s;
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%d%d", &n, &x, &y);
+  if (x > y) return printf("%d\n", n), 0;
+
+  int ans = 0;
+  for (int i = 0; i < n; i++) {
+    scanf("%d", &a);
+    if (a <= x) s.insert(a);
+  }
+
+  while (s.size()) {
+    ans++;
+    s.erase(s.find(*s.rbegin()));
+
+    if (s.empty()) break;
+
+    int v = *s.begin();
+    s.erase(s.begin());
+
+    v += y;
+
+    if (v <= x) s.insert(v);
+  }
+
+  printf("%d\n", ans);
+
   return 0;
 }

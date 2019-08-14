@@ -39,8 +39,43 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int n, l, r, a[N];
+vector<int> v;
+
+int test(int x) {
+  int val = v[x];
+
+  int s = 0, ok = 0;
+  for (int i = 1; i <= n; i++) {
+    if (s >= l and s <= r and a[i] >= val) {
+      s = 0; ok = 0;
+    }
+    if (s == r) {
+      if (!ok) return 0;
+      s = 0; ok = 0;
+    }
+
+    s++;
+    ok |= a[i] >= val;
+  }
+  return 1;
+}
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%d%d", &n, &l, &r);
+  for (int i = 1; i <= n; i++) scanf("%d", &a[i]), v.push_back(a[i]);
+  sort(v.begin(), v.end());
+  v.erase(unique(v.begin(), v.end()), v.end());
+
+  int lo = 0, hi = v.size()-1;
+  while (lo < hi) {
+    int md = (lo+hi+1)/2;
+    db(lo _ md _ hi _ v[md] _ test(md));
+    if (test(md)) lo = md;
+    else hi = md-1;
+  }
+
+  printf("%d\n", v[lo]);
+
   return 0;
 }
