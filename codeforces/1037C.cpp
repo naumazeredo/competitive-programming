@@ -9,7 +9,6 @@ using namespace std;
 using namespace __gnu_pbds;
 
 typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
-std::mt19937_64 rng((int) std::chrono::steady_clock::now().time_since_epoch().count());
 
 #define st first
 #define nd second
@@ -37,10 +36,26 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 1e6+5;
+
+int n;
+char a[N], b[N];
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%s%s", &n, a, b);
+
+  int ans = 0;
+  for (int i = 0; i < n-1; i++) {
+    if (a[i] != a[i+1] and a[i] != b[i] and a[i+1] != b[i+1]) {
+      swap(a[i], a[i+1]);
+      ans++;
+    }
+  }
+
+  for (int i = 0; i < n; i++)
+    if (a[i] != b[i]) ans++;
+
+  printf("%d\n", ans);
+
   return 0;
 }

@@ -37,10 +37,26 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 105;
+
+int n, m, vis[N];
+vector<pii> ans[N];
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%d", &n, &m);
+  for (int i = 1; i <= n; i++) ans[i].push_back({i, i});
+  for (int u, v, i = 0; i < m; i++) {
+    scanf("%d%d", &u, &v);
+    int a = min(u, v), b = max(u, v);
+    int p = a*200+b;
+    ans[u].push_back({ u, p });
+    ans[v].push_back({ v, p });
+  }
+
+  for (int i = 1; i <= n; i++) {
+    printf("%d\n", (int)ans[i].size());
+    for (pii x : ans[i]) printf("%d %d\n", x.st, x.nd);
+  }
+
   return 0;
 }

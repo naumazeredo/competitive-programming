@@ -39,8 +39,27 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int t;
+char a[N], b[N];
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &t);
+  while (t--) {
+    scanf("%s%s", a, b);
+    int n = strlen(a);
+    n = (n-1)/2;
+
+    int ans = 0, inv = 0, ok = 1;
+    if (a[n] != b[n]) ok = 0;
+    for (int i = 0; i < n and ok; i++) {
+      if (inv) swap(a[i], a[2*n-i]);
+
+      if (a[i] == b[i] and a[2*n-i] == b[2*n-i]) continue;
+      if (a[i] == b[2*n-i] and a[2*n-i] == b[i]) { ans++; inv ^= 1; continue; }
+      ok = 0;
+    }
+
+    printf("%d\n", ok ? ans : -1);
+  }
   return 0;
 }

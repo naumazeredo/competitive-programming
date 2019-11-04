@@ -39,8 +39,29 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int t, n, a[N], b[N];
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &t);
+  while (t--) {
+    scanf("%d", &n);
+    for (int i = 1; i <= n; i++) scanf("%d", &a[i]);
+    for (int i = 1; i <= n; i++) scanf("%d", &b[i]);
+
+    int ok = 1;
+    for (int i = 1; i <= n-2; i++) {
+      int diff = b[i] - a[i];
+      if (diff < 0) { ok = 0; break; }
+
+      a[i  ] += diff * 1;
+      a[i+1] += diff * 2;
+      a[i+2] += diff * 3;
+    }
+
+    for (int i = 1; i <= n and ok; i++)
+      if (a[i] != b[i]) ok = 0;
+
+    printf("%s\n", ok ? "TAK" : "NIE");
+  }
   return 0;
 }

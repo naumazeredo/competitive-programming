@@ -37,10 +37,20 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 105;
+
+int w, h, k;
+int g[N][N];
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%d%d", &w, &h, &k);
+
+  int ans = 0;
+  for (int i = 0; i < k; i++) {
+    ans += 2*w + 2*h - 4;
+    w -= 4; h -= 4;
+  }
+  printf("%d\n", ans);
+
   return 0;
 }

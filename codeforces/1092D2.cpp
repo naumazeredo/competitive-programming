@@ -39,8 +39,37 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int n, a;
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &n);
+
+  vector<pii> v;
+
+  for (int i = 0; i < n; i++) {
+    scanf("%d", &a);
+
+    int cnt = 1;
+    while (v.size() and v.back().st <= a) {
+      int l = v.back().st;
+      int c = v.back().nd;
+      if (l != a and c&1) return printf("NO\n"), 0;
+
+      cnt += c, v.pop_back();
+    }
+    v.push_back({ a, cnt });
+  }
+
+  while (v.size() > 1) {
+    int c = v.back().nd;
+    //auto [a, c] = v.back(); // no C++17 :(
+    v.pop_back();
+
+    if (c&1) return printf("NO\n"), 0;
+    v.back().nd += c;
+  }
+
+  printf("YES\n");
+
   return 0;
 }

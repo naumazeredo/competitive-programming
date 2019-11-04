@@ -37,10 +37,49 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 3e5+5;
+
+int n, m;
+ll ans[N], add[N];
+
+vector<int> adj[N];
+vector<pii> qs[N];
+
+void dfs(int u, int p, int h, ll acc) {
+  for (auto q : qs[u]) {
+    int d = q.st, x = q.nd;
+    add[h] += x;
+    add[min(n, h + d + 1)] -= x;
+  }
+
+  acc += add[h];
+  ans[u] = acc;
+
+  for (int v : adj[u]) if (v != p) dfs(v, u, h+1, acc);
+
+  for (auto q : qs[u]) {
+    int d = q.st, x = q.nd;
+    add[h] -= x;
+    add[min(n, h + d + 1)] += x;
+  }
+}
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &n);
+  for (int u, v, i = 0; i < n-1; i++) {
+    scanf("%d%d", &u, &v);
+    adj[u].push_back(v);
+    adj[v].push_back(u);
+  }
+
+  scanf("%d", &m);
+  for (int v, d, x, i = 0; i < m; i++) {
+    scanf("%d%d%d", &v, &d, &x);
+    qs[v].push_back({ d, x });
+  }
+
+  dfs(1, 0, 0, 0);
+  for (int i = 1; i <= n; i++) printf("%lld ", ans[i]);
+  printf("\n");
   return 0;
 }

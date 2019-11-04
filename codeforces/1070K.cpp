@@ -39,8 +39,25 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int n, k, a[N], t;
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%d", &n, &k);
+  for (int i = 0; i < n; i++) scanf("%d", &a[i]), t += a[i];
+
+  if (t % k) return printf("No\n"), 0;
+
+  vector<int> ans;
+  int v = 0, q = 0;
+  for (int i = 0; i < n; i++) {
+    if (v < t/k) v += a[i], q++;
+    if (v > t/k) return printf("No\n"), 0;
+    if (v == t/k) ans.push_back(q), v = 0, q = 0;
+  }
+
+  printf("Yes\n");
+  for (int x : ans) printf("%d ", x);
+  printf("\n");
+
   return 0;
 }

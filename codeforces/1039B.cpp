@@ -9,7 +9,6 @@ using namespace std;
 using namespace __gnu_pbds;
 
 typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
-std::mt19937_64 rng((int) std::chrono::steady_clock::now().time_since_epoch().count());
 
 #define st first
 #define nd second
@@ -39,8 +38,49 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+ll n, k;
+char s[10];
+
+int query(ll l, ll r) {
+  printf("%lld %lld\n", l, r);
+  fflush(stdout);
+  scanf("%s", s);
+  if (s[0] == 'B') exit(0);
+
+  if (l == r and s[0] == 'Y') exit(0);
+
+  return s[0] == 'Y';
+}
+
+int in_range(ll l, ll r) {
+  return query(max(1ll, l-k), min(n, r+k));
+}
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  srand(time(0));
+  scanf("%lld%lld", &n, &k);
+
+  ll lo = 1, hi = n;
+  while (1) {
+    ll md = (lo+hi)/2;
+
+    if (hi - lo + 1 <= 4*k) {
+      ll r = (1ll*rand()*rand()*rand()*rand());
+      r = (r%(hi-lo+1) + hi-lo)%(hi-lo+1) +lo;
+      query(r, r);
+    } else {
+      if (rand()&1) {
+        if (query(lo, max(lo, md-1))) hi = md-1;
+        else lo = md;
+      } else {
+        if (query(min(md+1, hi), hi)) lo = md+1;
+        else hi = md;
+      }
+    }
+
+    lo = max(lo-k, 1ll);
+    hi = min(hi+k, n);
+  }
+
   return 0;
 }

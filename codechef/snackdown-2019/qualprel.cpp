@@ -39,8 +39,19 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int t, n, k, s[N];
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &t);
+  while (t--) {
+    scanf("%d%d", &n, &k);
+    for (int i = 0; i < n; i++) scanf("%d", &s[i]);
+    sort(s, s+n, greater<int>());
+
+    for (; k < n and s[k] == s[k-1]; k++) ;
+    k = min(k, n);
+
+    printf("%d\n", k);
+  }
   return 0;
 }

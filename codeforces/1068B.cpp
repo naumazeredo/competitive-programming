@@ -39,8 +39,15 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+ll b;
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%lld", &b);
+  ll ans = 0;
+  for (ll i = 1; i*i <= b; i++) if (b%i==0) {
+    ans += 2;
+    if (i*i == b) ans--;
+  }
+  printf("%lld\n", ans);
   return 0;
 }

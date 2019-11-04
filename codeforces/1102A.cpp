@@ -39,8 +39,11 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int n;
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &n);
+  if (n%4 == 0 or (n&1 and (n/2)&1)) return printf("0\n"), 0;
+  printf("1\n");
   return 0;
 }

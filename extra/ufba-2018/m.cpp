@@ -39,8 +39,33 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int n;
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &n);
+  vector<pii> v;
+  for (int i = n; i >= 1; i--) v.push_back({ n, n });
+
+  vector<vector<pii>> ans;
+  while (v.size() > 1) {
+    vector<pii> nv;
+
+    ll s = 0, cnt = 0;
+    pii x = {0, 0};
+    for (auto y : v) {
+      if (!x.st) {
+        s+=y.nd-y.st+1;
+        cnt = 0;
+        x = y;
+        continue;
+      }
+
+      if ((s + y.nd-y.st+1)*cnt > n) {
+      }
+
+      s += y.nd-y.st+1;
+    }
+  }
+
   return 0;
 }

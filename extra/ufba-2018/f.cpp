@@ -39,8 +39,51 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int n, l, r, a[N];
+vector<int> v;
+int dp[N];
+
+int test(int x) {
+  memset(dp, 0, sizeof dp);
+  dp[0] = 1;
+  int val = v[x];
+  //db(val);
+
+  int pre = 0, acc = 0;
+  for (int i = 1; i <= n; i++) {
+    //db(i _ pre);
+    acc += (a[i] >= val);
+
+    if (i-pre > r or !dp[pre]) {
+      //db("ok");
+      for (; pre < i-r; pre++, acc -= (a[pre] >= val)) ;
+      for (; pre < i and !dp[pre]; pre++, acc -= (a[pre] >= val));
+    }
+
+    if (i >= l and acc and i-pre>=l) dp[i] = 1;
+    //db(i _ acc _ pre _ dp[i]);
+  }
+
+  //dbs("");
+
+  return dp[n];
+}
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%d%d", &n, &l, &r);
+  for (int i = 1; i <= n; i++) scanf("%d", &a[i]), v.push_back(a[i]);
+  sort(v.begin(), v.end());
+  v.erase(unique(v.begin(), v.end()), v.end());
+
+  int lo = 0, hi = v.size()-1;
+  while (lo < hi) {
+    int md = (lo+hi+1)/2;
+    //db(lo _ md _ hi _ v[md] _ test(md));
+    if (test(md)) lo = md;
+    else hi = md-1;
+  }
+
+  printf("%d\n", v[lo]);
+
   return 0;
 }

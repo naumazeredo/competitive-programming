@@ -39,8 +39,38 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int add(int a, int b) {
+  a += b;
+  if (a >= MOD) a -= MOD;
+  return a;
+}
+
+int sub(int a, int b) {
+  a -= b;
+  if (a < 0) a += MOD;
+  return a;
+}
+
+int mul(int a, int b) {
+  return 1ll*a*b%MOD;
+}
+
+int n, q, x[N], p[N], p2[N], s2[N];
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  p2[0] = s2[0] = 1;
+  for (int i = 1; i < N; i++) {
+    p2[i] = mul(2, p2[i-1]);
+    s2[i] = add(s2[i-1], p2[i]);
+  }
+
+  scanf("%d%d", &n, &q);
+  for (int i = 1; i <= n; i++) scanf("%1d", &x[i]), p[i] = p[i-1] + x[i];
+  for (int l, r, i = 0; i < q; i++) {
+    scanf("%d%d", &l, &r);
+    int s = r-l+1;
+    int t = p[r] - p[l-1];
+    printf("%d\n", add(t ? s2[t-1] : 0, mul(sub(p2[t], 1), s-t ? s2[s-t-1] : 0)));
+  }
   return 0;
 }

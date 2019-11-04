@@ -39,8 +39,49 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int n, l, w, r, m;
+set<pll> ss;
+
+void insert(set<pll>& s, ll a, ll b) {
+  if (b < -w or a > w) return;
+  a = max<ll>(-w, a); a = min<ll>(w, a);
+  b = max<ll>(-w, b); b = min<ll>(w, b);
+
+  vector<pll> rem;
+  for (auto x : s) {
+    if (x.st <= a and x.nd >= b) return;
+    if ((x.st >= a and x.st <= b) or (x.nd >= a and x.nd <= b)) {
+      a = min(a, x.st); b = max(b, x.nd);
+      rem.push_back(x);
+    }
+  }
+
+  for (auto x : rem) s.erase(x);
+  s.insert({ a, b });
+}
+
+void update(ll m) {
+  set<pll > ns;
+  for (pll x : ss) {
+    insert(ns, x.st + m * r, x.nd + m * l);
+    insert(ns, x.st - m * l, x.nd - m * r);
+  }
+  ss = ns;
+}
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%d%d%d", &n, &l, &w, &r);
+  w *= 2; r *= 2;
+
+  ss.insert({ 0, 0 });
+  for (int i = 0; i < n; i++) {
+    scanf("%d", &m);
+    update(m);
+
+    if (ss.empty()) return printf("No\n"), 0;
+  }
+
+  printf("Yes\n");
+
   return 0;
 }

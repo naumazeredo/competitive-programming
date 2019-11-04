@@ -39,8 +39,24 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int t, d;
+
+ld delta() { return d*d - 4*d; }
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &t);
+  while (t--) {
+    scanf("%d", &d);
+    ld dlt = delta();
+
+    if (dlt < 0) {
+      printf("N\n");
+      continue;
+    }
+
+    ld a = (d + sqrt(dlt))/2;
+    ld b = (d - sqrt(dlt))/2;
+    printf("Y %.9f %.9f\n", (double)a, (double)b);
+  }
   return 0;
 }

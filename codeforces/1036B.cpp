@@ -9,7 +9,6 @@ using namespace std;
 using namespace __gnu_pbds;
 
 typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
-std::mt19937_64 rng((int) std::chrono::steady_clock::now().time_since_epoch().count());
 
 #define st first
 #define nd second
@@ -39,8 +38,33 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int di[] = { 1, 1, 0, -1, -1, -1, 0, 1 };
+int dj[] = { 0, -1, -1, -1, 0, 1, 1, 1 };
+
+int q;
+ll n, m, k;
+
+ll solv(ll n, ll m, ll k) {
+  if (n < m) swap(n, m);
+  if (n > k) return -1;
+
+  ll res = 0;
+  if ((n-m)&1) {
+    res = k-1;
+  } else {
+    if ((k-m)%2 == 0) res = k;
+    else res = k-2;
+  }
+
+  return res;
+}
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &q);
+  while (q--) {
+    scanf("%lld%lld%lld", &n, &m, &k);
+    printf("%lld\n", solv(n, m, k));
+  }
+
   return 0;
 }

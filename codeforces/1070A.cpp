@@ -37,10 +37,51 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 5005, D = 505;
+
+int d, s, inv;
+int dp[N][D];
+pii r[N][D];
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%d", &d, &s);
+
+  memset(r, -1, sizeof r);
+
+  queue<pii> q;
+
+  for (int i = 1; i <= 9; i++) {
+    q.push({ i, i%d });
+    dp[i][i%d] = 1;
+    r[i][i%d] = { 0, 0 };
+  }
+
+  while (!q.empty()) {
+    int us = q.front().st;
+    int um = q.front().nd;
+    q.pop();
+
+    for (int i = 0; i <= 9; i++) if (us+i <= s and !dp[us+i][(um*10+i)%d]) {
+      q.push({ us+i, (um*10+i)%d });
+      dp[us+i][(um*10+i)%d] = 1;
+      r[us+i][(um*10+i)%d] = { us, um };
+    }
+  }
+
+  vector<int> ans;
+  d = 0;
+  while (r[s][d] != pii(-1, -1)) {
+    pii x = r[s][d];
+    ans.push_back(s - x.st);
+    s = x.st;
+    d = x.nd;
+  }
+  reverse(ans.begin(), ans.end());
+
+  if (ans.size()) {
+    for (int x : ans) printf("%d", x);
+    printf("\n");
+  } else printf("-1\n");
+
   return 0;
 }

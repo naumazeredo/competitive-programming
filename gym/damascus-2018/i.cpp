@@ -39,8 +39,20 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int t, n, a[N], s;
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &t);
+  while (t--) {
+    scanf("%d", &n);
+    s = 0;
+    for (int i = 1; i <= n; i++) scanf("%d", &a[i]), s += a[i];
+    sort(a+1, a+1+n);
+
+    int ans = -1;
+    if (n&1) ans = s&1;
+    else ans = a[1]&1 ? 1 : s&1;
+    printf("%s\n", ans ? "Yalalov" : "Shin");
+  }
   return 0;
 }

@@ -37,10 +37,57 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 2e3+5;
+
+/*
+const ll H[2] = { MOD, MOD+2 };
+const ll B[2] = { 61, 7901 };
+*/
+const ll P = MOD;
+const ll B = 7901;
+
+int t, n, x[N];
+ll h, p[N];
+map<ll, ll> mm;
+
+void update(int x, int v) {
+  h += v * p[x];
+  mm[h]++;
+}
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  p[0] = 1;
+  for (int i = 1; i < N; i++) p[i] = p[i-1] * P;
+
+  scanf("%d", &t);
+  while (t--) {
+    mm.clear();
+
+    scanf("%d", &n);
+
+    map<pii, int> m;
+    int cnt = 0;
+    for (int u, v, i = 0; i < n; i++) {
+      scanf("%d%d", &u, &v);
+
+      if (u > v) swap(u, v);
+      pii p = { u, v };
+      if (m.count(p)) x[i] = m[p];
+      else x[i] = m[p] = ++cnt;
+    }
+
+    for (int i = 0; i < n; i++) {
+      h = 0;
+      for (int j = i; j < n; j++) update(x[j], 1);
+    }
+
+    ll ans = 0;
+    for (auto p : mm) {
+      ll k = p.nd;
+      ans += k*(k-1)/2;
+    }
+
+    printf("%lld\n", ans);
+  }
   return 0;
 }

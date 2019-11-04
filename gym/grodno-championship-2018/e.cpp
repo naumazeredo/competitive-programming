@@ -39,8 +39,19 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int t, n, m;
+int a[N], b[N];
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &t);
+  while (t--) {
+    scanf("%d%d", &n, &m);
+    for (int i = 0; i < n; i++) scanf("%d", &a[i]); sort(a, a+n);
+    for (int i = 0; i < m; i++) scanf("%d", &b[i]); sort(b, b+m);
+
+    int ans = 0;
+    for (int i = 0; i < n; i++) ans += lower_bound(b, b+m, a[i]) - b;
+    printf("%d\n", ans);
+  }
   return 0;
 }

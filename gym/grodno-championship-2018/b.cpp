@@ -39,8 +39,27 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int k;
+ll n, m;
+
+set<ll> rows, cols, diag1, diag2;
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%lld%lld%d", &n, &m, &k);
+  for (int t, a, b, i = 0; i < k; i++) {
+    scanf("%d%d%d", &t, &a, &b);
+    if (t&1) {
+      rows.insert(a);
+      cols.insert(b);
+    }
+    if (t&1) {
+      diag1.insert(a-b);
+      diag2.insert(a-m+b);
+    }
+  }
+
+  ll ans = n*m;
+  ans += rows.size() + cols.size() - rows.size() * cols.size();
+
   return 0;
 }

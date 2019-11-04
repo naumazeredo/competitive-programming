@@ -9,7 +9,6 @@ using namespace std;
 using namespace __gnu_pbds;
 
 typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
-std::mt19937_64 rng((int) std::chrono::steady_clock::now().time_since_epoch().count());
 
 #define st first
 #define nd second
@@ -39,8 +38,26 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int n, a[2][N], b[N];
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &n);
+  for (int i = 1; i <= n; i++) scanf("%d", &a[0][i]); sort(a[0]+1, a[0]+n+1);
+  for (int i = 1; i <= n; i++) scanf("%d", &a[1][i]); sort(a[1]+1, a[1]+n+1);
+
+  ll ans = 0;
+  int p[2] = {n, n};
+  int t = 0;
+
+  while (p[0] or p[1]) {
+    //db(t _ p[t] _ p[1-t] _ a[t][p[t]] _ a[1-t][p[1-t]]);
+    if (p[t] and a[t][p[t]] >= a[1-t][p[1-t]]) ans += (t ? -1 : 1) * a[t][p[t]], p[t]--;
+    else p[1-t]--;
+    t = 1-t;
+    //db(p[t] _ p[1-t] _ ans);
+  }
+
+  printf("%lld\n", ans);
+
   return 0;
 }

@@ -9,7 +9,6 @@ using namespace std;
 using namespace __gnu_pbds;
 
 typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
-std::mt19937_64 rng((int) std::chrono::steady_clock::now().time_since_epoch().count());
 
 #define st first
 #define nd second
@@ -37,10 +36,37 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 2e5+5;
+
+int n, h[N], m[N];
+vector<int> adj[N];
+queue<set<int>> v;
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &n);
+  for (int a, b, i = 0; i < n-1; i++) {
+    scanf("%d%d", &a, &b);
+    adj[a].push_back(b);
+    adj[b].push_back(a);
+  }
+
+  set<int> s;
+  s.insert(1);
+  v.push(s);
+  m[1] = 1;
+
+  for (int a, i = 0; i < n; i++) {
+    scanf("%d", &a);
+
+    if (!v.front().count(a)) return !printf("No\n");
+    v.front().erase(a);
+    if (v.front().empty()) v.pop();
+
+    s.clear();
+    for (int v : adj[a]) if (!m[v]) m[v] = 1, s.insert(v);
+    if (s.size()) v.push(s);
+  }
+
+  printf("Yes\n");
   return 0;
 }

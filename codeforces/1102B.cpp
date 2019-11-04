@@ -37,10 +37,45 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 1e4+5;
+
+int n, k, a[N], ans[N];
+set<int> c[N];
+set<int> f;
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%d", &n, &k);
+  for (int i = 0; i < n; i++) scanf("%d", &a[i]);
+
+  for (int i = 1; i <= k; i++) f.insert(i);
+
+  for (int i = 0; i < n; i++) {
+    int ok = 0;
+    for (int x : f) if (!c[a[i]].count(x)) {
+      c[a[i]].insert(x);
+      f.erase(x);
+
+      ans[i] = x;
+      ok = 1;
+
+      break;
+    }
+
+    if (!ok) {
+      for (int j = 1; j <= k; j++) if (!c[a[i]].count(j)) {
+        c[a[i]].insert(j);
+        ans[i] = j;
+        ok = 1;
+        break;
+      }
+
+      if (!ok) return printf("NO\n"), 0;
+    }
+  }
+
+  printf("YES\n");
+  for (int i = 0; i < n; i++) printf("%d ", ans[i]);
+  printf("\n");
+
   return 0;
 }

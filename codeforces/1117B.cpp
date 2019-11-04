@@ -37,10 +37,17 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 2e5+5;
+
+ll n, m, k, a[N];
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%lld%lld%lld", &n, &m, &k);
+  for (int i = 0; i < n; i++) scanf("%lld", &a[i]);
+  sort(a, a+n, greater<ll>());
+
+  ll acc = k*a[0] + a[1];
+  printf("%lld\n", (m/(k+1))*acc + (m%(k+1))*a[0]);
+
   return 0;
 }

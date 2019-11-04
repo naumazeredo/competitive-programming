@@ -39,8 +39,53 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int n, k, h;
+int mrk[N];
+vector<int> cand;
+
+int query(int a, int b, int c) {
+  printf("? %d %d %d\n", a, b, c);
+  fflush(stdout);
+  char s[10];
+  scanf("%s", s);
+  return s[0] == 'Y';
+}
+
+void ans(int rt) {
+  printf("! %d\n", rt);
+  fflush(stdout);
+  exit(0);
+}
+
+void solve() {
+  int h = 0;
+  ll t = 0, l = 1;
+  while (t < n) {
+    t += l;
+    l *= k;
+    h++;
+  }
+
+  for (int i = 0; i < 60; i++) {
+    int a = rand()%n+1;
+    int b = rand()%n+1;
+
+    vector<int> p;
+    for (int j = 1; j <= n; j++) if (query(a, j, b)) p.push_back(j);
+    if ((int)p.size() == 2*h-1) {
+      for (int x : p) {
+        int cnt = 0;
+        for (int j = 1; j <= n; j++) cnt += query(a, j, x);
+        if (cnt == h) ans(x);
+      }
+    }
+  }
+}
+
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  srand(time(0));
+  scanf("%d%d", &n, &k);
+  solve();
   return 0;
 }

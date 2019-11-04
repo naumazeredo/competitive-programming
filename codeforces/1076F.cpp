@@ -37,10 +37,45 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 3e5+5;
+
+int n, k, v[N][2];
+pii dp[N][2];
+
+void update(int i, int s, int v) {
+  dp[i][s].st = min(dp[i][s].st, v);
+  dp[i][s].nd = max(dp[i][s].nd, v);
+}
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%d", &n, &k);
+  for (int i = 1; i <= n; i++) scanf("%d", &v[i][0]);
+  for (int i = 1; i <= n; i++) scanf("%d", &v[i][1]);
+
+  for (int i = 1; i <= n; i++) dp[i][0] = { -INF, INF }, dp[i][1] = { -INF, INF };
+
+  for (int i = 1; i <= n; i++) {
+    for (int j = 0; j <= 1; j++) {
+      if (v[i][j] == 0 and dp[i-1][1-j].st >= 0 and dp[i-1][1-j].st + v[i][1-j] <= k)
+        update(i, 1, dp[i-1][1-j].st + v[i][1-j]);
+
+      int pre = 
+    }
+
+    /*
+    int other = v[i][1-s];
+    int val = v[i][1-s];
+
+    int pre = dp[i-1][s];
+    if (pre == -1 and dp[i-1][1-s] != -1) pre = 0;
+    if (pre == -1) continue;
+
+    if (pre and other) {
+      val -= k-x; other -= 1
+    } else {
+    }
+    */
+  }
+
   return 0;
 }

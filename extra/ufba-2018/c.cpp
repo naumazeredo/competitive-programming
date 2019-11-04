@@ -39,8 +39,47 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int add(int a, int b) {
+  a += b;
+  if (a >= MOD) a -= MOD;
+  return a;
+}
+
+int sub(int a, int b) {
+  a -= b;
+  if (a < 0) a += MOD;
+  return a;
+}
+
+int mul(int a, int b) {
+  return 1ll*a*b%MOD;
+}
+
+int fexp(ll a, ll b) {
+  int r = 1;
+  for (a%=MOD; b; b>>=1, a=mul(a,a)) if (b&1) r=mul(r,a);
+  return r;
+}
+
+int p2(ll b) { return fexp(2, b); }
+
+int t;
+ll n;
+
+int solve() {
+  int x, y;
+  int p = p2(n);
+
+  x = sub(mul(n%MOD, p), sub(p, 1));
+  y = sub(sub(add(p,p),1), add(n%MOD,1));
+  return sub(x, y);
+}
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &t);
+  while (t--) {
+    scanf("%lld", &n);
+    printf("%d\n", solve());
+  }
   return 0;
 }

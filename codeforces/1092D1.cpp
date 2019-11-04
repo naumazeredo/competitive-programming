@@ -39,8 +39,22 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int n, a;
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &n);
+
+  vector<int> v;
+
+  for (int i = 0; i < n; i++) {
+    scanf("%d", &a);
+    a &= 1;
+
+    if (v.size() and v.back() == a) v.pop_back();
+    else v.push_back(a);
+  }
+
+  printf("%s\n", v.size() <= 1 ? "YES" : "NO");
+
   return 0;
 }

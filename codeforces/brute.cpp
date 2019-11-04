@@ -39,8 +39,22 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+ll f[N];
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  f[0] = 1;
+  for (int i = 1; i < N; i++) f[i] = (i*f[i-1])%MOD;
+
+  for (int n = 1; n < 10; n++) {
+    for (int m = 2; m <= n; m++) {
+      ll val = 0;
+      for (int k = 0; n-k*m >= 0; k++) {
+        val += f[n-k*m+k]/f[k]/f[n-k*m];
+      }
+      db(n _ m _ val);
+    }
+    dbs("");
+  }
+
   return 0;
 }

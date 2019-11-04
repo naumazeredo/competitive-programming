@@ -36,11 +36,20 @@ typedef pair<ll, ll> pll;
 typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
-const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int INF = 0x3f3f3f3f, MOD = 998244353;
+const int N = 20;
+
+int add(int a, int b) {
+  a += b;
+  if (a >= MOD) a -= MOD;
+  return a;
+}
+
+ll l, r, k;
+int dp[20][1<<10], tot[20][11];;
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%lld%lld%lld", &l, &r, &k);
+
   return 0;
 }

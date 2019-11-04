@@ -37,10 +37,38 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 4e5+5;
+
+int n, t;
+vector<int> v[4];
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &n);
+  for (int x, y, a, i = 0; i < n; i++) {
+    scanf("%1d%1d%d", &x, &y, &a);
+    v[2*x+y].push_back(a);
+  }
+
+  for (int i = 0; i < 4; i++) sort(v[i].begin(), v[i].end());
+
+  t = v[3].size();
+
+  int ans = 0;
+  for (int x : v[3]) ans += x;
+
+  while (v[1].size() and v[2].size()) {
+    ans += v[1].back(); v[1].pop_back();
+    ans += v[2].back(); v[2].pop_back();
+  }
+
+  while (v[1].size()) v[0].push_back(v[1].back()), v[1].pop_back();
+  while (v[2].size()) v[0].push_back(v[2].back()), v[2].pop_back();
+  sort(v[0].begin(), v[0].end());
+
+  for (int i = 0; i < t and v[0].size(); i++)
+    ans += v[0].back(), v[0].pop_back();
+
+  printf("%d\n", ans);
+
   return 0;
 }

@@ -39,8 +39,13 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+ll n, m, k, l;
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%lld%lld%lld%lld", &n, &m, &k, &l);
+  if (m > n or l+k > n) return printf("-1\n"), 0;
+  ll ans = (l+k+m-1)/m;
+  printf("%lld\n", ans*m > n ? -1 : ans);
+
   return 0;
 }

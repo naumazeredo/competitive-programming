@@ -39,8 +39,13 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int n, a[N], ans;
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &n);
+  for (int i = 0; i < n; i++) scanf("%d", &a[i]);
+  sort(a, a+n);
+  for (int i = 0; i < n; i+=2) ans += a[i+1]-a[i];
+  printf("%d\n", ans);
   return 0;
 }

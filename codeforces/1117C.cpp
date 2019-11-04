@@ -5,6 +5,8 @@
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
 
+#define y1 y1237857313
+
 using namespace std;
 using namespace __gnu_pbds;
 
@@ -39,8 +41,51 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int n, x1, y1, x2, y2;
+char s[N];
+
+ll mx, my;
+
+ll dist(ll a, ll b, ll x, ll y) {
+  return abs(a-x) + abs(b-y);
+}
+
+int test(ll m) {
+  ll px = x1, py = y1;
+  px += (m/n)*mx;
+  py += (m/n)*my;
+
+  for (int i = 0; i < (m%n); i++) {
+    if (s[i] == 'U') py++;
+    if (s[i] == 'D') py--;
+    if (s[i] == 'R') px++;
+    if (s[i] == 'L') px--;
+  }
+
+  return dist(x2, y2, px, py) <= m;
+}
+
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%d", &x1, &y1);
+  scanf("%d%d", &x2, &y2);
+  scanf("%d%s", &n, s);
+
+  for (int i = 0; i < n; i++) {
+    if (s[i] == 'U') my++;
+    if (s[i] == 'D') my--;
+    if (s[i] == 'R') mx++;
+    if (s[i] == 'L') mx--;
+  }
+
+  ll lo = 0, hi = 1e15;
+  while (lo < hi) {
+    ll md = (lo+hi)/2;
+    if (test(md)) hi = md;
+    else lo = md+1;
+  }
+
+  printf("%lld\n", lo >= ll(1e14) ? -1 : lo);
+
   return 0;
 }

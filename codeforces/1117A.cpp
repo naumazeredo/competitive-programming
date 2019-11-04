@@ -39,8 +39,23 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int n, a;
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &n);
+  int ans = 1;
+  int ma = -1, s = 0, l = -1;
+  for (int i = 0; i < n; i++) {
+    scanf("%d", &a);
+
+    if (a == l) s++;
+    else s = 1;
+
+    if (a == ma) ans = max(ans, s);
+    if (a > ma) ma = a, ans = s;
+
+    l = a;
+  }
+  printf("%d\n", ans);
   return 0;
 }

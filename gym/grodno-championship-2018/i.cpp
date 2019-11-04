@@ -39,8 +39,23 @@ const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
 const int N = 1e5+5;
 
+int n, z;
+ld c[100][100], p2[100];
+
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  for (int i = 0; i < 100; i++) c[i][0] = 1;
+  for (int i = 1; i < 100; i++)
+    for (int j = 1; j < 100; j++)
+      c[i][j] = c[i-1][j-1] + c[i-1][j];
+
+  p2[0] = 1;
+  for (int i = 1; i < 100; i++) p2[i] = 2*p2[i-1];
+
+  while (~scanf("%d%d", &n, &z)) {
+    if (z > n) { printf("100\n"); continue; }
+    ld tot = 0;
+    for (int i = 0; i <= z; i++) tot += p2[n-i]/p2[n-z]*c[n][i]/c[n][z];
+    printf("%.12Lf\n", (1.0 - 1.0/tot) * 100);
+  }
   return 0;
 }

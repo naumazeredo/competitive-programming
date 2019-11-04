@@ -37,10 +37,50 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 55;
+
+int t, n, a[N];
+int vis[N];
+
+void dfs(int u) {
+  vis[u] = 1;
+  for (int v = 0; v < n; v++) if (!vis[v] and gcd(a[v], a[u]) == 1)
+    dfs(v);
+}
+
+int count() {
+  int res = 0;
+  memset(vis, 0, sizeof vis);
+  for (int i = 0; i < n; i++) if (!vis[i]) dfs(i), res++;
+  return res;
+}
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d", &t);
+  while (t--) {
+    scanf("%d", &n);
+    for (int i = 0; i < n; i++) scanf("%d", &a[i]);
+
+    int ans = 0;
+    if (count() != 1) {
+      ans = 1;
+
+      int ok = 0;
+      for (int i = 0; i < n and !ok; i++) {
+        int v = a[i];
+        for (int j = 2; j <= 50 and !ok; j++) {
+          a[i] = j;
+          if (count() == 1) ok = 1;
+        }
+
+        if (ok) break;
+        a[i] = v;
+      }
+    }
+
+    printf("%d\n", ans);
+    for (int i = 0; i < n; i++) printf("%d ", a[i]);
+    printf("\n");
+  }
   return 0;
 }

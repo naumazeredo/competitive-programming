@@ -9,7 +9,6 @@ using namespace std;
 using namespace __gnu_pbds;
 
 typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
-std::mt19937_64 rng((int) std::chrono::steady_clock::now().time_since_epoch().count());
 
 #define st first
 #define nd second
@@ -37,10 +36,53 @@ typedef vector<int> vi;
 
 const ld EPS = 1e-9, PI = acos(-1.);
 const int INF = 0x3f3f3f3f, MOD = 1e9+7;
-const int N = 1e5+5;
+const int N = 1e6+5;
+
+int n, k, a[N];
+set<int> s;
+ll ans;
+
+ll add(ll a, ll b) {
+  a += b;
+  if (a >= MOD) a -= MOD;
+  return a;
+}
+
+ll mul(ll a, ll b) {
+  return a*b%MOD;
+}
 
 int main() {
-  //freopen("in", "r", stdin);
-  //freopen("out", "w", stdout);
+  scanf("%d%d", &n, &k);
+  vector<pii> v;
+  for (int i = 1; i <= n; i++) scanf("%d", &a[i]), v.push_back({ a[i], i });;
+  sort(v.rbegin(), v.rend());
+
+  s.insert(0);
+  s.insert(n+1);
+
+  for (auto x : v) {
+    auto it = s.insert(x.nd).st;
+
+    it--;
+    int l = x.nd - (*it) -1;
+
+    it++;
+    it++;
+    int r = (*it) - x.nd -1;
+
+    //db(x.st _ x.nd _ l _ r);
+    db(x.st _ x.nd);
+
+    for (; l + r + 1 >= k; l = max(0, l-k+1), r = max(0, r-k+1)) {
+      int t = min(r,k-1) + min(l, k-1) - k+2;
+      db(l _ r _ t);
+
+      ans = add(ans, mul(x.st, t));
+    }
+  }
+
+  printf("%lld\n", ans);
+
   return 0;
 }
